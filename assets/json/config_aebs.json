@@ -1,0 +1,838 @@
+[
+    {
+        "label": "Time to collision",
+        "inputType": "tab",
+        "unit": "second",
+        "packageId": 701,
+        "selections": [
+            {
+                "id": 0,
+                "name": "Speed < 5"
+            },
+            {
+                "id": 1,
+                "name": "Speed 6-10"
+            },
+            {
+                "id": 2,
+                "name": "Speed 11-15"
+            },
+            {
+                "id": 3,
+                "name": "Speed 16-20"
+            },
+            {
+                "id": 4,
+                "name": "Speed 21-30"
+            },
+            {
+                "id": 5,
+                "name": "Speed 31-40"
+            },
+            {
+                "id": 6,
+                "name": "Speed 41-50"
+            },
+            {
+                "id": 7,
+                "name": "Speed 51-60"
+            },
+            {
+                "id": 8,
+                "name": "Speed 61-70"
+            },
+            {
+                "id": 9,
+                "name": "Speed > 70"
+            } 
+        ],
+        "child": [
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 7,
+                "min": 1,
+                "groupId": 0,
+                "index": 0
+             },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 12,
+                "min": 1,
+                "groupId": 0,
+                "index": 1
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 20,
+                "min": 1,
+                "groupId": 0,
+                "index": 2
+            },
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 6,
+                "min": 1,
+                "groupId": 1,
+                "index": 3
+             },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 10,
+                "min": 1,
+                "groupId": 1,
+                "index": 4
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 20,
+                "min": 1,
+                "groupId": 1,
+                "index": 5
+            },
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 5,
+                "min": 1,
+                "groupId": 2,
+                "index":6
+            },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 10,
+                "min": 1,
+                "groupId": 2,
+                "index": 7
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 20,
+                "min": 1,
+                "groupId": 2,
+                "index": 8
+            },
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 5,
+                "min": 1,
+                "groupId": 3,
+                "index": 9
+             },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 12,
+                "min": 1,
+                "groupId": 3,
+                "index": 10
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 20,
+                "min": 1,
+                "groupId": 3,
+                "index": 11
+            },
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 6,
+                "min": 1,
+                "groupId": 4,
+                "index": 12
+            },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 18,
+                "min": 1,
+                "groupId": 4,
+                "index": 13
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 20,
+                "min": 1,
+                "groupId": 4,
+                "index": 14
+            },
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 8,
+                "min": 1,
+                "groupId": 5,
+                "index": 15
+            },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 25,
+                "min": 1,
+                "groupId": 5,
+                "index": 16
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 35,
+                "min": 1,
+                "groupId": 5,
+                "index": 17
+            },
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 10,
+                "min": 1,
+                "groupId": 6,
+                "index": 18
+            },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 24,
+                "min": 1,
+                "groupId": 6,
+                "index": 19
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 34,
+                "min": 1,
+                "groupId": 6,
+                "index": 20
+            },
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 10,
+                "min": 1,
+                "groupId": 7,
+                "index": 21
+            },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 24,
+                "min": 1,
+                "groupId": 7,
+                "index": 22
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 34,
+                "min": 1,
+                "groupId": 7,
+                "index": 23
+            },
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 10,
+                "min": 1,
+                "groupId": 8,
+                "index": 24
+            },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 26,
+                "min": 1,
+                "groupId": 8,
+                "index": 25
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 36,
+                "min": 1,
+                "groupId": 8,
+                "index": 26
+            },
+            {
+                "label": "Full brake",
+                "inputType": "number",
+                "defaultValue": 10,
+                "min": 1,
+                "groupId": 9,
+                "index": 27
+            },
+            {
+                "label": "Light brake",
+                "inputType": "number",
+                "defaultValue": 26,
+                "min": 1,
+                "groupId": 9,
+                "index": 28
+            },
+            {
+                "label": "Hazard",
+                "inputType": "number",
+                "defaultValue": 36,
+                "min": 1,
+                "groupId": 9,
+                "index": 29
+            }
+        ]
+    },
+    {
+        "label": "Light brake pressure level",
+        "inputType": "tab",
+        "unit": "bar",
+        "packageId": 702,
+        "selections": [
+            {
+                "id": 0,
+                "name": "Speed < 5"
+            },
+            {
+                "id": 1,
+                "name": "Speed 6-10"
+            },
+            {
+                "id": 2,
+                "name": "Speed 11-15"
+            },
+            {
+                "id": 3,
+                "name": "Speed 16-20"
+            },
+            {
+                "id": 4,
+                "name": "Speed 21-30"
+            },
+            {
+                "id": 5,
+                "name": "Speed 31-40"
+            },
+            {
+                "id": 6,
+                "name": "Speed 41-50"
+            },
+            {
+                "id": 7,
+                "name": "Speed 51-60"
+            },
+            {
+                "id": 8,
+                "name": "Speed 61-70"
+            },
+            {
+                "id": 9,
+                "name": "Speed > 70"
+            } 
+        ],
+        "child": [
+            {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 800,
+                "min": 1,
+                "groupId": 0,
+                "index": 0
+             },
+             {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 900,
+                "min": 1,
+                "groupId": 1,
+                "index": 1
+             },
+             {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 1000,
+                "min": 1,
+                "groupId": 2,
+                "index": 2
+             },
+             {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 1100,
+                "min": 1,
+                "groupId": 3,
+                "index": 3
+             },
+             {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 1200,
+                "min": 1,
+                "groupId": 4,
+                "index": 4
+             },
+             {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 1300,
+                "min": 1,
+                "groupId": 5,
+                "index": 5
+             },
+             {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 1400,
+                "min": 1,
+                "groupId": 6,
+                "index": 6
+             },
+             {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 1500,
+                "min": 1,
+                "groupId": 7,
+                "index": 7
+             },
+             {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 1600,
+                "min": 1,
+                "groupId": 8,
+                "index": 8
+             },
+            {
+                "label": "Pressure level",
+                "inputType": "number",
+                "defaultValue": 1700,
+                "min": 1,
+                "groupId": 9,
+                "index": 9
+             }
+        ]
+    },
+    {
+        "label": "Radar filter",
+        "packageId": 703,
+        "child": [
+            {
+                "label": "RCS radar",
+                "inputType": "slider",
+                "defaultValue": 10,
+                "max": 12,
+                "index": 0
+            },
+            {
+                "label": "Coverage to left",
+                "inputType": "slider",
+                "defaultValue": 1.2,
+                "isDecimal": true,
+                "max": 5,
+                "unit": "m",
+                "index": 1,
+                "scale": 10
+            },
+            {
+                "label": "Coverage to right",
+                "inputType": "slider",
+                "defaultValue": 1.2,
+                "isDecimal": true,
+                "max": 5,
+                "unit": "m",
+                "index": 2,
+                "scale": 10
+            }
+        ] 
+    },
+    {
+        "label": "AEBS non-active",
+        "unit": "second",
+        "packageId": 704,
+        "child": [
+            {
+                "label": "Left turn signal",
+                "inputType": "slider",
+                "defaultValue": 40,
+                "max": 60,
+                "scale": 1000,
+                "index": 0
+            },
+            {
+                "label": "Right turn signal",
+                "inputType": "slider",
+                "defaultValue": 40,
+                "max": 60,
+                "scale": 1000,
+                "index": 1
+            },
+            {
+                "label": "Switch cancel",
+                "inputType": "slider",
+                "defaultValue": 40,
+                "max": 60,
+                "scale": 1000,
+                "index": 2
+            }
+        ]
+    },
+    {
+        "label": "Unit config",
+        "packageId": 705,
+        "child": [
+            {
+                "label": "Unit type",
+                "inputType": "dropdown",
+                "index": 0,
+                "defaultValue": 0,
+                "packageId": 705,
+                "selections": [
+                    {
+                        "id": 0,
+                        "name": "HINO 500"
+                    },
+                    {
+                        "id": 1,
+                        "name": "FAW JH6 420"
+                    },
+                    {
+                        "id": 2,
+                        "name": "HOWO 400"
+                    },
+                    {
+                        "id": 3,
+                        "name": "HOWO 400 V7X"
+                    },
+                    {
+                        "id": 4,
+                        "name": "HOWO EV"
+                    },
+                    {
+                        "id": 5,
+                        "name": "XCMG HANVAN G7"
+                    },
+                    {
+                        "id": 6,
+                        "name": "XCMG HANVAN XG1"
+                    },
+                    {
+                        "id": 7,
+                        "name": "XCMG HANVAN EV"
+                    },
+                    {
+                        "id": 8,
+                        "name": "SHACMAN X3000"
+                    },
+                    {
+                        "id": 9,
+                        "name": "SHACMAN F3000 420"
+                    },
+                    {
+                        "id": 10,
+                        "name": "SHACMAN F3000 430"
+                    },
+                    {
+                        "id": 11,
+                        "name": "HINO EURO 2"
+                    },
+                    {
+                        "id": 12,
+                        "name": "HOWO 371"
+                    },
+                    {
+                        "id": 13,
+                        "name": "DONGFENG KY50"
+                    },
+                    {
+                        "id": 14,
+                        "name": "FOTON_AUMAN EST 380"
+                    },
+                    {
+                        "id": 15,
+                        "name": "SANY SYZ428C"
+                    },
+                    {
+                        "id": 16,
+                        "name": "HOWO NX 400"
+                    },
+                    {
+                        "id": 17,
+                        "name": "TATA PRIMA"
+                    },
+                    {
+                        "id": 18,
+                        "name": "UD QUESTER CWE280"
+                    },
+                    {
+                        "id": 19,
+                        "name": "FUSO FIGHTER"
+                    }
+                ]
+            },
+            {
+                "label": "Sensor activation",
+                "inputType": "multiToggle",
+                "packageId": 705,
+                "child": [
+                    {
+                        "label": "Vehicle speed sensor activation",
+                        "index": 1,
+                        "defaultValue": 0
+                    },
+                    {
+                        "label": "Engine speed sensor activation",
+                        "index": 2,
+                        "defaultValue": 0
+                    },
+                    {
+                        "label": "Left turn sensor activation",
+                        "index": 3,
+                        "defaultValue": 0
+                    },
+                    {
+                        "label": "Right turn sensor activation",
+                        "index": 4,
+                        "defaultValue": 0
+                    },
+                    {
+                        "label": "Brake switch sensor activation",
+                        "index": 5,
+                        "defaultValue": 0
+                    },
+                    {
+                        "label": "Clutch switch sensor activation",
+                        "index": 6,
+                        "defaultValue": 0
+                    },
+                    {
+                        "label": "CAN Bus CH2 activation",
+                        "index": 7,
+                        "defaultValue": 0
+                    }
+                ]
+            },
+            {
+                "label": "CAN Bus CH2 baudrate",
+                "inputType": "dropdown",
+                "index": 8,
+                "defaultValue": 60,
+                "packageId": 705,
+                "selections": [
+                    {
+                        "id": 60,
+                        "name": "50000"
+                    },
+                    {
+                        "id": 30,
+                        "name": "100000"
+                    },
+                    {
+                        "id": 24,
+                        "name": "125000"
+                    },
+                    {
+                        "id": 20,
+                        "name": "200000"
+                    },
+                    {
+                        "id": 12,
+                        "name": "250000"
+                    },
+                    {
+                        "id": 6,
+                        "name": "500000"
+                    }
+                ]
+            },
+            {
+                "label": "Vehicle speed slope",
+                "inputType": "number",
+                "defaultValue": 0,
+                "index": 9,
+                "isDecimal": true,
+                "transformer": {
+                    "type": "decimalExponent",
+                    "value": 0.000001
+                }
+            },
+            {
+                "label": "Vehicle speed intercept",
+                "inputType": "number",
+                "defaultValue": 0,
+                "index": 11,
+                "isDecimal": true,
+                "transformer": {
+                    "type": "decimalExponent",
+                    "value": 0.000001
+                }
+            },
+            {
+                "label": "Engine speed slope",
+                "inputType": "number",
+                "defaultValue": 0,
+                "index": 13,
+                "isDecimal": true,
+                "transformer": {
+                    "type": "decimalExponent",
+                    "value": 0.000001
+                }
+            },
+            {
+                "label": "Engine speed intercept",
+                "inputType": "number",
+                "defaultValue": 0,
+                "index": 15,
+                "isDecimal": true,
+                "transformer": {
+                    "type": "decimalExponent",
+                    "value": 0.000001
+                }
+            },
+            {
+                "label": "Relay 1 function",
+                "defaultValue": 0,
+                "index": 17
+            },
+             {
+                "label": "Relay 2 function",
+                "defaultValue": 0,
+                "index": 18
+            },
+             {
+                "label": "Relay 3 function",
+                "defaultValue": 0,
+                "index": 19
+            },
+             {
+                "label": "Relay 4 function",
+                "defaultValue": 0,
+                "index": 20
+            }
+        ]
+    },
+    {
+        "label": "Radar placement",
+        "inputType": "radarPlacement",
+        "child": [
+            {
+                "label": "RADAR 1",
+                "child": [
+                    {
+                        "label": "Center",
+                        "inputType": "slider2",
+                        "min": 0,
+                        "max": 2500,
+                        "index": 0,
+                        "groupId": 0
+                    },
+                    {
+                        "label": "Center from Ground",
+                        "inputType": "slider",
+                        "min": 0,
+                        "max": 4000,
+                        "index": 2,
+                        "groupId": 0
+                    },
+                    {
+                        "label": "Vertical Tilt",
+                        "inputType": "slider",
+                        "min": -45,
+                        "max": 45,
+                        "index": 3,
+                        "groupId": 0
+                    },
+                    {
+                        "label": "Horizontal Tilt",
+                        "inputType": "slider",
+                        "min": -45,
+                        "max": 45,
+                        "index": 4,
+                        "groupId": 0
+                    },
+                    {
+                        "label": "Horizontal Beam Width",
+                        "inputType": "slider",
+                        "min": 0,
+                        "max": 180,
+                        "index": 5,
+                        "groupId": 0
+                    },
+                    {
+                        "label": "Vertical Beam Width",
+                        "inputType": "slider",
+                        "min": 0,
+                        "max": 180,
+                        "index": 6,
+                        "groupId": 0
+                    }
+                ]
+            },
+            {
+                "label": "RADAR 2",
+                "child": [
+                    {
+                        "label": "Enable Radar",
+                        "inputType": "toggle",
+                        "index": -1,
+                        "groupId": 1
+                    },
+                    {
+                        "label": "Center",
+                        "inputType": "slider2",
+                        "min": 0,
+                        "max": 2500,
+                        "index": 0,
+                        "groupId": 1
+                    },
+                    {
+                        "label": "Center from Ground",
+                        "inputType": "slider",
+                        "min": 0,
+                        "max": 4000,
+                        "index": 2,
+                        "groupId": 1
+                    },
+                    {
+                        "label": "Vertical Tilt",
+                        "inputType": "slider",
+                        "min": -45,
+                        "max": 45,
+                        "index": 3,
+                        "groupId": 1
+                    },
+                    {
+                        "label": "Horizontal Tilt",
+                        "inputType": "slider",
+                        "min": -45,
+                        "max": 45,
+                        "index": 4,
+                        "groupId": 1
+                    },
+                    {
+                        "label": "Horizontal Beam Width",
+                        "inputType": "slider",
+                        "min": 0,
+                        "max": 180,
+                        "index": 5,
+                        "groupId": 1
+                    },
+                    {
+                        "label": "Vertical Beam Width",
+                        "inputType": "slider",
+                        "min": 0,
+                        "max": 180,
+                        "index": 6,
+                        "groupId": 1
+                    }
+                ]
+            }
+        ]
+    }
+]

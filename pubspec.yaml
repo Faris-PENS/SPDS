@@ -1,0 +1,65 @@
+name: spds
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mqtt_client: ^10.11.3
+  shared_preferences: ^2.2.2
+  material_symbols_icons: ^4.2892.0
+  supabase_flutter: ^2.12.0
+  mobile_scanner: ^5.0.0
+  wifi_scan: ^0.4.1
+  permission_handler: ^11.0.1
+  connectivity_plus: ^6.0.3 
+  network_info_plus: ^5.0.3 
+  android_intent_plus: ^5.0.2
+  wifi_iot: ^0.3.19+2
+  http: ^1.2.0
+  qr_flutter: ^4.1.0
+  firebase_core: ^2.30.0
+  firebase_messaging: ^14.9.0
+  flutter_riverpod: ^2.6.1
+  flutter_svg: ^2.2.0
+  freezed_annotation: ^3.1.0
+  easy_localization: ^3.0.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+
+flutter_gen:
+  output: lib/core/gen/
+  integrations:
+    flutter_svg: true
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/langs/
+    - assets/images/
+    - assets/icons/
+    - assets/json/
+    # - .env
+    
+  fonts:
+    - family: SFProDisplay
+      fonts:
+        - asset: assets/fonts/SF-Pro-Display-Light.otf
+          weight: 300
+        - asset: assets/fonts/SF-Pro-Display-Regular.otf
+          weight: 400
+        - asset: assets/fonts/SF-Pro-Display-Medium.otf
+          weight: 500
+        - asset: assets/fonts/SF-Pro-Display-Semibold.otf
+          weight: 600
+        - asset: assets/fonts/SF-Pro-Display-Bold.otf
+          weight: 700
+

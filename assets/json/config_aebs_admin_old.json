@@ -1,0 +1,25 @@
+[
+    {
+        "label": "BT Name",
+        "index": 0,
+        "inputType": "dialog",
+        "defaultValue": "-",
+        "packageId": 706,
+        "regexPattern": "^VIXMO MCU-AEBS-[A-Z]{2,4}-\\d{4}$",
+        "hintText": "Ex: VIXMO MCU-AEBS-ABCD-1234"
+    },
+    {
+        "label": "Serial Number",
+        "index": 1,
+        "inputType": "dialog",
+        "defaultValue": "-",
+        "packageId": 706
+    },
+    {
+        "label": "Device Identifier",
+        "index": 2,
+        "inputType": "dialog",
+        "defaultValue": "-",
+        "packageId": 706
+    }
+]

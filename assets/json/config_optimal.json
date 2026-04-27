@@ -1,0 +1,38 @@
+[
+    {
+        "label": "Throttle curve acceleration",
+        "inputType": "slider",
+        "min": 0,
+        "max": 100,
+        "defaultValue": 60,
+        "unit": "%",
+        "index": 4
+    },
+    {
+        "label": "Power limit",
+        "inputType": "slider",
+        "min": 0,
+        "max": 100,
+        "defaultValue": 20,
+        "unit": "%",
+        "index": 2
+    },
+    {
+        "label": "Speed limit",
+        "inputType": "slider",
+        "min": 0,
+        "max": 100,
+        "defaultValue": 100,
+        "unit": "%",
+        "index": 3
+    },
+    {
+        "label": "Reverse power limit",
+        "inputType": "slider",
+        "min": 0,
+        "max": 100,
+        "defaultValue": 100,
+        "unit": "%",
+        "index": 5
+    }
+]

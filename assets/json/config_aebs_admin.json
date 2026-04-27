@@ -1,0 +1,71 @@
+[
+    {
+        "label": "BT name",
+        "index": 0,
+        "inputType": "dialog",
+        "defaultValue": "-",
+        "packageId": 501,
+        "regexPattern": "^VIXMO MCU-AEBS-[A-Z]{2,4}-\\d{4}$",
+        "description": "Format: VIXMO MCU-AEBS-[2-4 letters]-[4 digits]\ne.g. VIXMO MCU-AEBS-GECL-9001"
+    },
+        {
+        "label": "Vehicle unit",
+        "index": 1,
+        "packageId": 501,
+        "isHidden": true
+    },
+    {
+        "label": "Company group",
+        "index": 2,
+        "packageId": 501,
+        "isHidden": true
+    },
+            {
+        "label": "ID number",
+        "index": 3,
+        "packageId": 501,
+        "isHidden": true
+    },
+    {
+        "label": "VIN",
+        "index": 4,
+        "packageId": 501,
+        "isHidden": true
+    },
+    {
+        "label": "MCU type",
+        "index": 5,
+        "packageId": 501,
+        "isHidden": true
+    },
+        {
+        "label": "MCU version",
+        "index": 6,
+        "packageId": 501,
+        "isHidden": true
+    },
+        {
+        "label": "MCU serial number",
+        "index": 7,
+        "packageId": 501,
+        "isHidden": true
+    },
+        {
+        "label": "AEBS Firmware Version",
+        "index": 8,
+        "packageId": 501,
+        "isHidden": true
+    },
+        {
+        "label": "Configurator Firmware Version",
+        "index": 9,
+        "packageId": 501,
+        "isHidden": true
+    },
+    {
+        "label": "Radar firmware version",
+        "index": 10,
+        "packageId": 501,
+        "isHidden": true
+    }
+]

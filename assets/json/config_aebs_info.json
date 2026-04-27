@@ -1,0 +1,141 @@
+[
+    {
+         "label": "Vehicle information",
+         "inputType": "viewOnly",
+         "packageId": 501,
+         "child": [
+            {
+                "label": "Group",
+                "index": 2,
+                "transformer": {
+                    "type": "mapping",
+                    "values": {
+                        "0": "AEK",
+                        "1": "BKAE",
+                        "2": "MMS",
+                        "3": "BMT",
+                        "4": "RBT",
+                        "5": "KMB",
+                        "6": "BBS",
+                        "7": "MAV",
+                        "8": "RAM",
+                        "9": "GECL"
+                    }
+                }
+            },
+            {
+                "label": "ID number",
+                "packageId": 501,
+                "index": 3,
+                "inputType": "number"
+            },
+            {
+                "label": "Vehicle type",
+                "index": 1,
+                "transformer": {
+                    "type": "mapping",
+                    "values": {
+                        "0": "HINO 500",
+                        "1": "FAW JH6 420",
+                        "2": "HOWO 400",
+                        "3": "HOWO 400 V7X",
+                        "4": "HOWO EV",
+                        "5": "XCMG HANVAN G7",
+                        "6": "XCMG HANVAN XG1",
+                        "7": "XCMG HANVAN EV",
+                        "8": "SHACMAN X3000",
+                        "9": "SHACMAN F3000 420",
+                        "10": "SHACMAN F3000 430",
+                        "11": "HINO EURO 2",
+                        "12": "HOWO 371",
+                        "13": "DONGFENG KY50",
+                        "14": "SHACMAN F3000 420",
+                        "15": "SHACMAN F3000 430",
+                        "16": "FOTON AUMAN EST 380",
+                        "17": "SANY SYZ428C",
+                        "18": "HOWO NX 400",
+                        "19": "TATA PRIMA",
+                        "20": "UD QUESTER CWE280",
+                        "21": "FUSO FIGHTER"
+                    }
+                }
+            },
+            {
+                "label": "VIN",
+                "packageId": 501,
+                "index": 4,
+                "inputType": "text"
+            }
+         ]
+    },
+    {
+         "label": "Device information",
+         "inputType": "viewOnly",
+         "packageId": 501,
+         "child": [
+            {
+                "label": "MCU type",
+                "index": 5,
+                "transformer": {
+                    "type": "mapping",
+                    "values": {
+                        "0": "HINO 500",
+                        "1": "FAW JH6 420",
+                        "2": "HOWO 400",
+                        "3": "HOWO 400 V7X",
+                        "4": "HOWO EV",
+                        "5": "XCMG HANVAN G7",
+                        "6": "XCMG HANVAN XG1",
+                        "7": "XCMG HANVAN EV",
+                        "8": "SHACMAN X3000",
+                        "9": "SHACMAN F3000 420",
+                        "10": "SHACMAN F3000 430",
+                        "11": "HINO EURO 2",
+                        "12": "HOWO 371",
+                        "13": "DONGFENG KY50",
+                        "14": "SHACMAN F3000 420 CAN",
+                        "15": "SHACMAN F3000 430 CAN",
+                        "16": "FOTON AUMAN EST 380",
+                        "17": "SANY SYZ428C",
+                        "18": "HOWO NX 400",
+                        "19": "TATA PRIMA",
+                        "20": "UD QUESTER CWE280",
+                        "21": "FUSO FIGHTER"
+                    }
+                }
+            },
+            {
+                "label": "MCU version",
+                "index": 6
+            },
+            {
+                "label": "MCU serial number",
+                "packageId": 501,
+                "index": 7,
+                "inputType": "text"
+            }
+         ]
+    },
+    {
+         "label": "Firmware version",
+         "inputType": "viewOnly",
+         "packageId": 501,
+         "child": [
+            {
+                "label": "AEBS version",
+                "index": 8,
+                "prefix": "v "
+            },
+            {
+                "label": "Configurator version",
+                "index": 9,
+                "prefix": "v "
+            },
+            {
+                "label": "Radar version",
+                "index": 10,
+                "prefix": "v "
+            }
+         ]
+    }
+]

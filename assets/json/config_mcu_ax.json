@@ -1,0 +1,10 @@
+[
+    {
+        "label": "Tire Diameter",
+        "inputType": "number",
+        "defaultValue": 0.43,
+        "unit": "m",
+        "isDecimal" : true,
+        "index": -1
+    }
+]
