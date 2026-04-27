@@ -10,7 +10,7 @@ void main() async {
 
   await EasyLocalization.ensureInitialized();
   await SupabaseInit.init();
-
+  //tes
   runApp(
     ProviderScope(
       child: EasyLocalization(
