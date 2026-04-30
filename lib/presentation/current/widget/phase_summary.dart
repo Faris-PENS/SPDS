@@ -1,44 +1,41 @@
 import 'package:flutter/material.dart';
 
+
 class CurrentCard extends StatelessWidget {
   final String phase;
   final double ampere;
+  final double maxAmpere;
 
-  const CurrentCard({super.key, required this.phase, required this.ampere});
+  const CurrentCard({
+    super.key,
+    required this.phase,
+    required this.ampere,
+    required this.maxAmpere,
+  });
 
-  static const double maxAmpere = 100.0;
-  double get loadPercent => (ampere / maxAmpere) * 100;
-
+ double get loadPercent {
+  if (maxAmpere <= 0) return 0;
+  return (ampere / maxAmpere) * 100;
+}
   String get status {
-    if (loadPercent <= 50) {
-      return 'Normal';
-    } else if (loadPercent <= 70) {
-      return 'Medium Load';
-    } else {
-      return 'High Load';
-    }
+    if (loadPercent <= 50) return 'Normal';
+    if (loadPercent <= 70) return 'Medium Load';
+    return 'High Load';
   }
 
   Color get statusColor {
-    if (loadPercent <= 50) {
-      return Colors.green;
-    } else if (loadPercent <= 70) {
-      return Colors.orange;
-    } else {
-      return Colors.red;
-    }
+    if (loadPercent <= 50) return Colors.green;
+    if (loadPercent <= 70) return Colors.orange;
+    return Colors.red;
   }
 
   Color get progressColor {
-    if (loadPercent <= 50) {
-      return Colors.green;
-    } else if (loadPercent <= 70) {
-      return Colors.orange;
-    } else {
-      return Colors.red;
-    }
+    if (loadPercent <= 50) return Colors.green;
+    if (loadPercent <= 70) return Colors.orange;
+    return Colors.red;
   }
 
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -104,13 +101,18 @@ class CurrentCard extends StatelessWidget {
           const SizedBox(height: 10),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Text('Load', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white  )),
+              const SizedBox(width: 6),
               Text(
                 '${loadPercent.toStringAsFixed(1)} %',
                 style: const TextStyle(color: Colors.white),
               ),
+              Text(
+                ' / ${maxAmpere.toStringAsFixed(0)} A',
+                style: const TextStyle(color: Colors.white,),
+              )
             ],
           ),
 

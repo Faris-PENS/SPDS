@@ -67,8 +67,8 @@ Widget build(BuildContext context) {
 
         Expanded(
           child: _summaryCard(
-            title: 'Average Load',
-            value: '${averageLoad.toStringAsFixed(0)} %',
+            title: 'Average Amps',
+            value: '${averageLoad.toStringAsFixed(0)} A',
           ),
         ),
       ],

@@ -5,19 +5,38 @@ import 'package:spds/presentation/current/widget/current_sumarry.dart';
 import 'package:spds/presentation/current/widget/phase_summary.dart';
 import 'package:spds/presentation/header/header.dart';
 
-class CurrentPage extends ConsumerWidget {
+class CurrentPage extends ConsumerStatefulWidget {
   const CurrentPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CurrentPage> createState() => _CurrentPageState();
+}
+
+class _CurrentPageState extends ConsumerState<CurrentPage> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      ref.read(maxArusProvider.notifier).fetchData();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final phases = ref.watch(phaseCurrentProvider);
     final isBalanceable = ref.watch(balanceableProvider);
-    final values = phases.map((e) => e.arus).toList(growable: false);
+    final maxMap = ref.watch(maxArusProvider);
 
-    final totalCurrent = values.isEmpty ? 0.0 : values.reduce((a, b) => a + b);
+    final values = phases.map((e) => e.arus).toList();
+
+    final totalCurrent =
+        values.isEmpty ? 0.0 : values.reduce((a, b) => a + b);
+
     final averageLoad = values.isEmpty
         ? 0.0
-        : (totalCurrent / values.length / CurrentCard.maxAmpere) * 100;
+        : (totalCurrent / values.length / 100) * 100;
 
     final statusText = isBalanceable ? 'Unbalance' : 'Balance';
 
@@ -34,22 +53,22 @@ class CurrentPage extends ConsumerWidget {
                   Wrap(
                     spacing: 5,
                     runSpacing: 8,
-                    children: phases
-                        .map(
-                          (item) =>
-                              CurrentCard(phase: item.phase, ampere: item.arus),
-                        )
-                        .toList(growable: false),
+                    children: phases.map((item) {
+                      final maxAmp = maxMap[item.phase] ?? 1;
+
+                      return CurrentCard(
+                        phase: item.phase,
+                        ampere: item.arus,
+                        maxAmpere: maxAmp,
+                      );
+                    }).toList(),
                   ),
-
                   const SizedBox(height: 5),
-
                   CurrentSummary(
                     totalCurrent: totalCurrent,
                     averageLoad: averageLoad,
                     averageCurrent: statusText,
                   ),
-
                   const SizedBox(height: 20),
                 ],
               ),
