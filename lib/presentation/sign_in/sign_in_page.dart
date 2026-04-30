@@ -6,6 +6,7 @@ import 'package:spds/data/domain/entities/result.dart';
 import 'provider/auth.dart';
 import '../common/message_dialog.dart';
 import 'package:spds/presentation/main_page/main_page.dart';
+
 // import 'package:spds/presentation/home_page/home_page.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
@@ -15,15 +16,19 @@ class LoginPage extends ConsumerStatefulWidget {
   ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
+
+
 class _LoginPageState extends ConsumerState<LoginPage> {
   final userCtrl = TextEditingController();
   final passCtrl = TextEditingController();
   bool obscure = true;
 
+  
+
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(loginProvider);
-    final ctrl = ref.read(loginProvider.notifier);
     ref.listen(loginProvider, (prev, next) {
       if (prev == next) return;
 
@@ -45,7 +50,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               contentText: e.toString(),
               onRetry: () {
                 Navigator.pop(context);
-                ctrl.login(userCtrl.text, passCtrl.text);
+                // ctrl.login(userCtrl.text, passCtrl.text);
               },
             ),
           );
@@ -64,11 +69,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-  
-
-                const SizedBox(height: 20),
-
-                /// TITLE
+               const SizedBox(height: 20),
                 Text(
                   LocaleKeys.greetings.tr(),
                   style: const TextStyle(fontSize: 18),
@@ -82,8 +83,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
 
                 const SizedBox(height: 20),
-
-                /// USER INPUT
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: TextField(
@@ -101,8 +100,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
 
                 const SizedBox(height: 10),
-
-                /// PASSWORD INPUT
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: TextField(
@@ -129,7 +126,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                 const SizedBox(height: 20),
 
-                /// BUTTON
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: SizedBox(
@@ -153,7 +149,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 return;
                               }
 
-                              ctrl.login(user, pass);
+                               ref.read(loginProvider.notifier).login(user, pass) ;
                             },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1E6FD9),
