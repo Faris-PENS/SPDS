@@ -166,7 +166,7 @@ class ErrorMessageDialog extends StatelessWidget {
       contentText: contentText,
       buttonText: buttonText ?? LocaleKeys.retry.tr(),
       imageProvider: imageProvider ?? Assets.images.failed.image().image,
-      showCloseButton: true,
+      showCloseButton: false,
       onButtonTap: onRetry,
       secondButtonText: secondButtonText,
       showSecondButton: showSecondButton,
