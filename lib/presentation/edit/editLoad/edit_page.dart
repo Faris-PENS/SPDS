@@ -4,7 +4,7 @@ import 'package:spds/data/domain/entities/result.dart';
 import 'package:spds/presentation/header/header.dart';
 import 'provider/provider.dart';
 import 'widget/rename_form_widgets.dart';
-import '../common/message_dialog.dart';
+import '../../common/message_dialog.dart';
 
 class RenamePage extends ConsumerStatefulWidget {
   final int index;
