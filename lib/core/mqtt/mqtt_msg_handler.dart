@@ -1,23 +1,16 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../data/datasource/remote/mqtt/mqtt_parser.dart';
 import '../../presentation/current/provider/provider.dart';
 import '../../presentation/load_page/provider/provider_mqtt.dart';
 import '../../presentation/header/provider/provider.dart';
 import 'package:spds/data/model/all_data.dart';
 
-class MqttMessageHandler {
-  final LoadNotifier loadNotifier;
-  final PhaseCurrentNotifier? phaseCurrentNotifier;
-  final BalanceableNotifier? balanceableNotifier;
-  final ModeNotifier modeNotifier;
-  final StatusNotifier statusNotifier;
-
-  MqttMessageHandler(
-    this.loadNotifier,
-    this.phaseCurrentNotifier,
-    this.balanceableNotifier,
-    this.modeNotifier,
-    this.statusNotifier,
-  );
+class MqttMessageHandlerNotifier extends Notifier<bool> {
+  @override
+  bool build() {
+    return false;
+  }
 
   int? _normalizeLoadIndex(int rawLoad) {
     final load = rawLoad > 0 ? rawLoad - 1 : rawLoad;
@@ -30,17 +23,18 @@ class MqttMessageHandler {
     if (index == null) return;
 
     if (update.arus != null) {
-      loadNotifier.update(index, arus: update.arus);
+      ref.read(loadProvider.notifier).update(index, arus: update.arus);
     }
 
     if (update.clearPhase) {
-      loadNotifier.update(index, clearPhase: true);
+      ref.read(loadProvider.notifier).update(index, clearPhase: true);
     } else if (update.phase != null) {
-      loadNotifier.update(index, phase: update.phase);
+      ref.read(loadProvider.notifier).update(index, phase: update.phase);
     }
   }
 
-  void handle(String message) {
+
+  void handle(String message)  {
     final msg = message.trim();
     print("RAW MQTT: $msg");
 
@@ -48,24 +42,24 @@ class MqttMessageHandler {
     if (data == null) return;
     final mode = MqttParser.parseMode(data);
     if (mode != null) {
-      modeNotifier.update(mode);
+    ref.read(modeProvider.notifier).update(mode);
     }
     final status = MqttParser.parseStatus(data);
     if (status != null) {
-      statusNotifier.update(status);
+      ref.read(statusProvider.notifier).update(status);
     }
     final balanceable = MqttParser.parseBalanceable(data);
     if (balanceable != null) {
-      balanceableNotifier?.update(balanceable.isBalanceable);
+    ref.read(balanceableProvider.notifier).update(balanceable.isBalanceable);
     }
+
     final bulkLoads = MqttParser.parseBulkLoads(data);
     for (final item in bulkLoads) {
       _applyLoadUpdate(item);
     }
-
     final phases = MqttParser.parsePhaseCurrents(data);
     if (phases.isNotEmpty) {
-      phaseCurrentNotifier?.updateFromMqtt(phases);
+     ref.read(phaseCurrentProvider.notifier).updateFromMqtt(phases);
     }
 
     final singleLoad = MqttParser.parseSingleLoad(data);
@@ -74,3 +68,7 @@ class MqttMessageHandler {
     }
   }
 }
+
+final mqttHandlerProvider = NotifierProvider<MqttMessageHandlerNotifier, bool>(
+  () => MqttMessageHandlerNotifier(),
+);

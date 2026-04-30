@@ -8,16 +8,14 @@ import 'mqtt_msg_handler.dart';
 class MqttClientCore {
   late MqttServerClient client;
   final MqttTopics topics;
-  final MqttMessageHandler msgHandler;
-  StreamSubscription<List<MqttReceivedMessage<MqttMessage>>>?
-      _updatesSubscription;
+  StreamSubscription? _updatesSubscription;
 
-  MqttClientCore(this.topics, this.msgHandler);
+  MqttClientCore(this.topics);
 
-  Future<void> connect(String broker, String clientId, int port) async {
+  Future<void> connect(String clientId) async {
 
   
-    client = MqttServerClient.withPort(broker, clientId, port);
+    client = MqttServerClient.withPort('4db5068a397f4f9bb1156a1fd4c038df.s1.eu.hivemq.cloud', clientId, 8883);
     client.secure = true;
     client.securityContext = SecurityContext.defaultContext;
     client.keepAlivePeriod = 10;
@@ -44,7 +42,7 @@ class MqttClientCore {
 
   }
 
-  void _ensureUpdatesListener() {
+  void ensureUpdatesListener(MqttMessageHandlerNotifier read) {
     if (_updatesSubscription != null) return;
 
     final updates = client.updates;
@@ -58,14 +56,13 @@ class MqttClientCore {
         final msg = MqttPublishPayload.bytesToStringAsString(
           payload.payload.message,
         );
-        msgHandler.handle(msg);
+        read.handle(msg);
       }
     });
   }
 
   void subscribe(String topic) {
     client.subscribe(topic, MqttQos.atLeastOnce);
-    _ensureUpdatesListener();
   }
 
   void publish(String topic, String payload, {bool retain = false}) {
