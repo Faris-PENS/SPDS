@@ -4,13 +4,19 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:spds/core/supabase/supabase_init.dart';
 import 'package:spds/core/style/theme.dart';
 import 'package:spds/presentation/sign_in/sign_in_page.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:spds/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await _requestPermission();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await EasyLocalization.ensureInitialized();
   await SupabaseInit.init();
-  //tes
+  
   runApp(
     ProviderScope(
       child: EasyLocalization(
@@ -26,7 +32,17 @@ void main() async {
     ),
   );
 }
+  
 
+
+
+
+  
+Future<void> _requestPermission() async {
+  await Permission.location.request();
+  await Permission.nearbyWifiDevices.request();
+  await Permission.notification.request(); 
+}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
