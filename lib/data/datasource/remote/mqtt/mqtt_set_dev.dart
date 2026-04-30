@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spds/core/mqtt/mqtt_msg_handler.dart';
 import 'package:spds/data/model/topic_mqtt.dart';
 import 'package:spds/core/mqtt/mqtt_client.dart';
 import 'package:spds/core/mqtt/mqtt_provider.dart';
@@ -14,12 +15,10 @@ class SetDevice {
   }) async {
     final mqttNotifier = ref.read(mqttProvider.notifier);
     final mqtt = ref.read(mqttProvider);
-    final handler = ref.read(mqttHandlerProvider);
     final oldEsp = ref.read(currentEspProvider);
 
     final newTopics = MqttTopics.fromEspId(hwid);
-    final oldTopics =
-        oldEsp != null ? MqttTopics.fromEspId(oldEsp) : null;
+    final oldTopics = oldEsp != null ? MqttTopics.fromEspId(oldEsp) : null;
 
     isReset?.call();
 
@@ -35,14 +34,10 @@ class SetDevice {
       mqttNotifier.clear();
     }
   
-    final newMqtt = MqttClientCore(newTopics, handler);
+    final newMqtt = MqttClientCore(newTopics);
 
     try {
-      await newMqtt.connect(
-        "4db5068a397f4f9bb1156a1fd4c038df.s1.eu.hivemq.cloud",
-        clientid,
-        8883,
-      );
+      await newMqtt.connect(clientid);
 
       newMqtt.client.autoReconnect = true;
 
@@ -60,5 +55,6 @@ class SetDevice {
     for (final topic in newTopics.subscribeAll) {
       newMqtt.subscribe(topic);
     }
+    newMqtt.ensureUpdatesListener(ref.read(mqttHandlerProvider.notifier));
   }
 }
