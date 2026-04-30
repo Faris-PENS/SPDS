@@ -8,7 +8,6 @@ import 'package:spds/presentation/load_page/provider/provider_mqtt.dart';
 import 'package:spds/presentation/load_page/provider/provider_database.dart';
 import 'package:spds/presentation/header/provider/provider.dart';
 import 'package:spds/presentation/current/current_page.dart';
-// import 'package:spds/presentation/header/header.dart';
 import 'package:spds/presentation/load_page/load_page.dart';
 import 'package:spds/presentation/current/provider/provider.dart';
 import 'widget/navbar.dart';
@@ -25,6 +24,7 @@ class _MainPageState extends ConsumerState<MainPage> {
   final PageController _pageController = PageController();
 
   bool _initialized = false;
+  bool _loading = true; 
 
   late SetDevice setdev;
 
@@ -34,7 +34,19 @@ class _MainPageState extends ConsumerState<MainPage> {
 
     setdev = SetDevice(ref);
 
-    _initMain();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _resetAll();  
+      _initMain();   
+    });
+  }
+
+  void _resetAll() {;
+    ref.read(loadProvider.notifier).reset();
+    ref.read(loadControlProvider.notifier).reset();
+    ref.read(modeProvider.notifier).reset();
+    ref.read(statusProvider.notifier).reset();
+    ref.read(phaseCurrentProvider.notifier).reset();
+    ref.read(balanceableProvider.notifier).reset();
   }
 
   Future<void> _initMain() async {
@@ -45,12 +57,14 @@ class _MainPageState extends ConsumerState<MainPage> {
     final esp = await LocalSession.loadSessiondevice();
     if (esp == null) {
       debugPrint("MQTT: no device");
+      setState(() => _loading = false);
       return;
     }
 
     final clientid = await LocalSession.loadSessionuser();
     if (clientid == null) {
       debugPrint("MQTT: no user session");
+      setState(() => _loading = false);
       return;
     }
 
@@ -59,16 +73,15 @@ class _MainPageState extends ConsumerState<MainPage> {
       clientid: clientid,
       isReset: () {
         debugPrint("RESET CALLED");
-        ref.read(loadProvider.notifier).reset();
-        ref.read(loadControlProvider.notifier).reset();
-        ref.read(modeProvider.notifier).reset();
-        ref.read(statusProvider.notifier).reset();
-        ref.read(phaseCurrentProvider.notifier).reset();
-        ref.read(balanceableProvider.notifier).reset();
+        _resetAll();
       },
     );
 
     _initialized = true;
+
+    setState(() {
+      _loading = false; 
+    });
   }
 
   void _onNavTap(int index) {
@@ -89,14 +102,18 @@ class _MainPageState extends ConsumerState<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        physics: const BouncingScrollPhysics(),
-        onPageChanged: (index) {
-          setState(() => _currentIndex = index);
-        },
-        children: [LoadPage(), CurrentPage()], // Add CurrentPage() to the children list
-      ),
+      body: _loading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : PageView(
+              controller: _pageController,
+              physics: const BouncingScrollPhysics(),
+              onPageChanged: (index) {
+                setState(() => _currentIndex = index);
+              },
+              children: [LoadPage(), CurrentPage()],
+            ),
       bottomNavigationBar: BottomNav(
         currentIndex: _currentIndex,
         onTap: _onNavTap,
