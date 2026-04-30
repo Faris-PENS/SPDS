@@ -6,13 +6,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:spds/core/gen/locale_keys.g.dart';
 import 'package:spds/data/datasource/remote/supabase/device_supabase.dart';
 import 'package:spds/data/datasource/remote/supabase/share_dev_supabase.dart';
-import 'package:spds/presentation/main_page/provider/device_provider.dart';
-import 'package:spds/presentation/main_page/provider/share_dev_provider.dart';
 import 'package:spds/data/datasource/local/session.dart';
 import 'package:spds/presentation/monitoring_wrapper/wrapper.dart';
 // import 'package:kp_spds/presentation/home_page/providers/homePage.dart';
 import 'package:spds/presentation/common/custom_widget_dialog.dart';
 // import 'package:kp_spds/presentation/main_page/main_page.dart';
+
+import 'package:spds/presentation/edit/editphase/editphase.dart';
 
 class DeviceNum extends ConsumerWidget {
   final String name;
@@ -42,7 +42,7 @@ class DeviceNum extends ConsumerWidget {
   }
 
 void _showQR(BuildContext context) {
-  final qrData = "$hwid\nP-$name\nSharedev.Vixmo";
+  final qrData = "$hwid\nVIXMO-SPDS";
 
   showDialog(
     context: context,
@@ -113,9 +113,9 @@ void _showQR(BuildContext context) {
 
       if (!context.mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(LocaleKeys.success.tr())),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(LocaleKeys.success.tr())),
+      // );
 
       onDeleted(); 
     } catch (e) {
@@ -166,8 +166,17 @@ void _showQR(BuildContext context) {
                 ],
               ),
             ),
-
+            const SizedBox(width: 30),
             if (!isSharedDevice) ...[
+              IconButton(
+                icon: const Icon(Icons.settings, color: Colors.white, size: 30),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => Editphase(deviceId: hwid),
+                  ),
+                ),
+              ),
               IconButton(
                 icon: const Icon(Icons.qr_code, color: Colors.white, size: 30),
                 onPressed: () => _showQR(context),
