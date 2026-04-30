@@ -9,7 +9,7 @@ import 'package:spds/presentation/load_page/widget/load_card.dart';
 import 'package:spds/presentation/load_page/provider/provider_mqtt.dart';
 import 'package:spds/presentation/load_page/provider/provider_database.dart';
 import 'package:spds/presentation/header/header.dart';
-import 'package:spds/presentation/edit/edit_page.dart';
+import 'package:spds/presentation/edit/editLoad/edit_page.dart';
 
 class LoadPage extends ConsumerStatefulWidget {
   const LoadPage({super.key});
@@ -21,13 +21,18 @@ class LoadPage extends ConsumerStatefulWidget {
 class _LoadPageState extends ConsumerState<LoadPage> {
   ProviderSubscription<List<LoadParam>>? _loadSubscription;
 
+  bool _userInteracting = false; 
+
   @override
   void initState() {
     super.initState();
 
     _loadSubscription = ref.listenManual<List<LoadParam>>(
       loadProvider,
-      (_, next) => ref.read(loadControlProvider.notifier).syncFromMqtt(next),
+      (_, next) {
+        if (_userInteracting) return; 
+        ref.read(loadControlProvider.notifier).syncFromMqtt(next);
+      },
       fireImmediately: true,
     );
   }
@@ -45,7 +50,13 @@ class _LoadPageState extends ConsumerState<LoadPage> {
     if (mqtt == null || esp == null || esp.isEmpty) return;
 
     final topics = MqttTopics.fromEspId(esp);
+
+    _userInteracting = true;
     mqtt.publish(topics.pubPhase, '{"load": $load, "phase": "$phase"}');
+
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      _userInteracting = false; 
+    });
   }
 
   @override
@@ -62,7 +73,7 @@ class _LoadPageState extends ConsumerState<LoadPage> {
           const HeaderWidget(),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.zero, 
+              padding: EdgeInsets.zero,
               itemCount: loads.length,
               itemBuilder: (context, i) {
                 final item = loads[i];
@@ -114,7 +125,7 @@ class _LoadPageState extends ConsumerState<LoadPage> {
 
                     controlNotifier.setPhase(i, nextPhase);
 
-                    // Phase transition R/S/T/U always puts switch to OFF and sends N.
+        
                     _publishPhase(i + 1, 'N');
                     loadNotifier.update(i, clearPhase: true);
                   },
