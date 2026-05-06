@@ -30,8 +30,6 @@ class PairWifiNotifier extends StateNotifier<ResultState<bool>> {
     final start = DateTime.now();
 
     while (DateTime.now().difference(start) < timeout) {
-      await Future.delayed(const Duration(seconds: 2));
-
       status = await ds.statusEsp();
 
       if (status == "connected") {
