@@ -200,55 +200,55 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
-        apple,
-        arrowLeft,
-        bluetoothDisconnected,
-        fillAccOn,
-        fillAebs,
-        fillArrowCircleLeft,
-        fillArrowCircleRight,
-        fillBadgeChecked,
-        fillBuilding2,
-        fillCalendar3,
-        fillCircleCheck,
-        fillDownload3,
-        fillEngine,
-        fillFlash,
-        fillGear,
-        fillHazard,
-        fillOutArrowRight,
-        fillPencil,
-        fillReverse,
-        fillSpeedometer,
-        fillSpeedometerLeft,
-        fillSpeedometerRight,
-        fillTarget,
-        fillUpload3,
-        fillVolumeUp,
-        google,
-        hardBadge,
-        linearBox,
-        linearBrakeLamp,
-        linearBrakeSensing,
-        linearClutchSensing,
-        linearDiagnostic,
-        linearFile,
-        linearFilterFunnel3,
-        linearFlashOff,
-        linearFootBrake,
-        linearLink,
-        linearPneumatic,
-        linearRollbackCcw,
-        linearSearch,
-        linearSort,
-        linearTray,
-        markerPin,
-        search,
-        softBadge,
-        twoToneCircleCheck,
-        twoToneCircleX,
-        warningTriangle
-      ];
+    apple,
+    arrowLeft,
+    bluetoothDisconnected,
+    fillAccOn,
+    fillAebs,
+    fillArrowCircleLeft,
+    fillArrowCircleRight,
+    fillBadgeChecked,
+    fillBuilding2,
+    fillCalendar3,
+    fillCircleCheck,
+    fillDownload3,
+    fillEngine,
+    fillFlash,
+    fillGear,
+    fillHazard,
+    fillOutArrowRight,
+    fillPencil,
+    fillReverse,
+    fillSpeedometer,
+    fillSpeedometerLeft,
+    fillSpeedometerRight,
+    fillTarget,
+    fillUpload3,
+    fillVolumeUp,
+    google,
+    hardBadge,
+    linearBox,
+    linearBrakeLamp,
+    linearBrakeSensing,
+    linearClutchSensing,
+    linearDiagnostic,
+    linearFile,
+    linearFilterFunnel3,
+    linearFlashOff,
+    linearFootBrake,
+    linearLink,
+    linearPneumatic,
+    linearRollbackCcw,
+    linearSearch,
+    linearSort,
+    linearTray,
+    markerPin,
+    search,
+    softBadge,
+    twoToneCircleCheck,
+    twoToneCircleX,
+    warningTriangle,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -286,15 +286,15 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        avatar,
-        errorImage,
-        failed,
-        fillDestinationLocation,
-        logomark,
-        successful,
-        truckImage,
-        truckImageSide
-      ];
+    avatar,
+    errorImage,
+    failed,
+    fillDestinationLocation,
+    logomark,
+    successful,
+    truckImage,
+    truckImageSide,
+  ];
 }
 
 class $AssetsJsonGen {
@@ -309,8 +309,8 @@ class $AssetsJsonGen {
   /// File path: assets/json/config_aebs_admin_old.json
   String get configAebsAdminOld => 'assets/json/config_aebs_admin_old.json';
 
-  /// File path: assets/json/config_aebs_firmware.json
-  String get configAebsFirmware => 'assets/json/config_aebs_firmware.json';
+  /// File path: assets/json/config_aebs_info.json
+  String get configAebsInfo => 'assets/json/config_aebs_info.json';
 
   /// File path: assets/json/config_aebs_old.json
   String get configAebsOld => 'assets/json/config_aebs_old.json';
@@ -338,29 +338,29 @@ class $AssetsJsonGen {
 
   /// List of all assets
   List<String> get values => [
-        configAebs,
-        configAebsAdmin,
-        configAebsAdminOld,
-        configAebsFirmware,
-        configAebsOld,
-        configHigh,
-        configLow,
-        configMcuAx,
-        configOptimal,
-        configRadarPlacement,
-        mapStyle,
-        telemetryAebs
-      ];
+    configAebs,
+    configAebsAdmin,
+    configAebsAdminOld,
+    configAebsInfo,
+    configAebsOld,
+    configHigh,
+    configLow,
+    configMcuAx,
+    configOptimal,
+    configRadarPlacement,
+    mapStyle,
+    telemetryAebs,
+  ];
 }
 
 class $AssetsLangsGen {
   const $AssetsLangsGen();
 
   /// File path: assets/langs/en-US.json
-  String get enUS => 'kp_spds\\assets\\langs\\en-US.json';
+  String get enUS => 'assets/langs/en-US.json';
 
   /// File path: assets/langs/id-ID.json
-  String get idID => 'kp_spds\\assets\\langs\\id-ID.json';
+  String get idID => 'assets/langs/id-ID.json';
 
   /// List of all assets
   List<String> get values => [enUS, idID];
@@ -369,14 +369,10 @@ class $AssetsLangsGen {
 class Assets {
   const Assets._();
 
-  // static const String aEnv = '.env';
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsLangsGen langs = $AssetsLangsGen();
-
-  /// List of all assets
-  // static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {
@@ -446,15 +442,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
@@ -475,17 +464,11 @@ class AssetGenImageAnimation {
 }
 
 class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = false;
 
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -541,7 +524,8 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
+      colorFilter:
+          colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
