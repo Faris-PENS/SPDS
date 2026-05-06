@@ -5,9 +5,13 @@ import 'package:android_intent_plus/flag.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:spds/data/datasource/local/session.dart';
 import 'package:spds/presentation/page_init/pair_wifiESP.dart';
+import 'package:spds/core/gen/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ConnectDevicePage extends StatefulWidget {
-  const ConnectDevicePage({super.key});
+  final bool isResetWifi;
+  
+  const ConnectDevicePage({super.key, required this.isResetWifi});
 
   @override
   State<ConnectDevicePage> createState() => _ConnectDevicePageState();
@@ -55,7 +59,7 @@ class _ConnectDevicePageState extends State<ConnectDevicePage>
        Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                        builder: (_) => WifiScanPage(),
+                        builder: (_) => WifiScanPage(isResetWifi: widget.isResetWifi),
                       ),
                     );
     } else {  
@@ -91,15 +95,14 @@ class _ConnectDevicePageState extends State<ConnectDevicePage>
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
           child: Column(
             children: [
-            Text("Please Connect to device AP to\ngive wifi credential to your device", textAlign: TextAlign.center, style: Theme.of(context)
+            Text(LocaleKeys.pairAP.tr(), textAlign: TextAlign.center, style: Theme.of(context)
                     .textTheme
                     .titleLarge
                     ?.copyWith(fontWeight: FontWeight.bold)),
               const SizedBox(height: 18),
               Container(height: 1, color: Colors.white),
               const SizedBox(height: 28),
-               Text(
-                "Please select SSID Wifi that contains\ntext “VIXMO” on upcoming pop up",
+               Text(LocaleKeys.connectAP.tr(),
                 textAlign: TextAlign.center,
                style: Theme.of(context).textTheme
                     .titleMedium

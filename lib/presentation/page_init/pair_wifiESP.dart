@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spds/core/gen/locale_keys.g.dart';
 import 'package:spds/data/domain/entities/result.dart';
 import 'package:wifi_scan/wifi_scan.dart';
 import 'package:spds/presentation/common/timer_dialog.dart';
 import 'provider/pair_wifi.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:spds/presentation/page_init/save_device.dart';
+import 'package:spds/presentation/main_page/main_page.dart';
+import 'package:wifi_iot/wifi_iot.dart';
 
 class WifiScanPage extends ConsumerStatefulWidget {
-  const WifiScanPage({super.key});
+  final bool isResetWifi; 
+  const WifiScanPage({super.key, required this.isResetWifi});
 
   @override
   ConsumerState<WifiScanPage> createState() => _WifiScanPageState();
@@ -27,6 +31,7 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
   @override
   void initState() {
     super.initState();
+     WiFiForIoTPlugin.forceWifiUsage(true);
     _scanWifi();
   }
 
@@ -50,7 +55,7 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
 
   Future<void> _scanWifi() async {
     setState(() => isLoading = true);
-
+     
     final can = await WiFiScan.instance.canStartScan();
 
     if (can == CanStartScan.yes) {
@@ -72,25 +77,32 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
   Widget build(BuildContext context) {
     ref.listen(pairWifiProvider, (prev, next) async {
       next.maybeWhen(
-        loading: () {
-          AppDialog.showErrorDialog(
+        loading: () async {
+          
+           AppDialog.showErrorDialog(
+            mode: 1,
             isForover: true,
             durasi: 0,
             context: context, 
-            message: "Connecting...",
+            message: LocaleKeys.connecting.tr(),
           );
         },
         success: (_) async {
           if (Navigator.canPop(context)) Navigator.pop(context);
-
+             await WiFiForIoTPlugin.forceWifiUsage(false);
           await AppDialog.showErrorDialog(
+            mode: 2,
             isForover: false,
             durasi: 5,
             context: context,
-            message: "Connected!",
+            message: LocaleKeys.connected.tr(),
             onClosed: () {
+           
               Navigator.pushReplacement(
                 context,
+                widget.isResetWifi
+                    ? MaterialPageRoute(builder: (_) => HomePage())
+                    :
                 MaterialPageRoute(
                   builder: (_) => saveDevice(),
                 ),
@@ -102,10 +114,11 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
           if (Navigator.canPop(context)) Navigator.pop(context);
 
           await AppDialog.showErrorDialog(
+            mode: 3,
             isForover: false,
             durasi: 5,
             context: context,
-            message: "Failed to connect. Please check your password and try again.",
+            message: LocaleKeys.failedConnectWifi.tr(),
             // message: e.message,
           );
         },
@@ -118,8 +131,8 @@ orElse: () async {},
         padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
         child: Column(
           children: [
-              const Text(
-                "Please select router Wifi and submit the correct password",
+               Text(
+                  LocaleKeys.connectWifi.tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -168,7 +181,7 @@ orElse: () async {},
                       passwordController.text,
                     );
               },
-              child: const Text("Connect"),
+              child:  Text(LocaleKeys.connect.tr()),
             ),
           ],
         ),

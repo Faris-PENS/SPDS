@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:spds/core/gen/locale_keys.g.dart';
 import 'package:spds/data/domain/entities/result.dart';
 import 'package:spds/presentation/main_page/main_page.dart';
 import '../common/message_dialog.dart';
 import 'provider/sharedevice.dart';
 import 'provider/newdevice.dart';
 import 'package:spds/data/datasource/local/session.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:spds/presentation/page_init/pair_deviceAP.dart';
 
 class QrScanPage extends ConsumerStatefulWidget {
@@ -73,9 +75,9 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
       showDialog(
         context: context,
         builder: (_) => ErrorMessageDialog(
-          titleText: "Invalid QR Code",
-          contentText: "The scanned QR code is not valid for this application.",
-          buttonText: "RETRY",
+          titleText: LocaleKeys.invalidQrCode.tr(),
+          contentText: LocaleKeys.wrongFormatQrCode.tr(),
+          buttonText: LocaleKeys.retry.tr(),
           onRetry: () {
             _resetScan();
              Navigator.pop(context);
@@ -100,9 +102,9 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
               showDialog(
                 context: context,
                 builder: (_) => ErrorMessageDialog(
-                  titleText: "Error",
-                  contentText: "Already registed!",
-                  buttonText: "RETRY",
+                  titleText: LocaleKeys.error.tr(),
+                  contentText: LocaleKeys.registeredOnUser.tr(),
+                  buttonText: LocaleKeys.retry.tr(),
                   onRetry: () {
                     _resetScan();
                     Navigator.pop(context);
@@ -115,9 +117,9 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
               showDialog(
                 context: context,
                 builder: (_) => MessageDialog(
-                  titleText: "Success",
-                  contentText: "Device shared successfully!",
-                  buttonText: "OK",
+                  titleText: LocaleKeys.success.tr(),
+                  contentText: LocaleKeys.deviceShared.tr(),
+                  buttonText: LocaleKeys.ok.tr(),
                   showCloseButton: false,
                   onButtonTap: () {
                      _resetScan();
@@ -137,9 +139,9 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
             showDialog(
               context: context,
               builder: (_) => ErrorMessageDialog(
-                titleText: "Error",
-                contentText: "Failed to share device.",
-                buttonText: "OK",
+                titleText: LocaleKeys.error.tr(),
+                contentText: LocaleKeys.failedToShare.tr(),
+                buttonText: LocaleKeys.ok.tr(),
                 onRetry: () {
                   _resetScan();
                 },
@@ -152,9 +154,9 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
           showDialog(
             context: context,
             builder: (_) => ErrorMessageDialog(
-              titleText: "Error",
-              contentText: "Device belum didaftarkan.",
-              buttonText: "RETRY",
+              titleText: LocaleKeys.error.tr(),
+              contentText: LocaleKeys.deviceNotFound.tr(),
+              buttonText: LocaleKeys.retry.tr(),
               onRetry: () {
                 _resetScan();
                 Navigator.pop(context);
@@ -176,9 +178,9 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
           showDialog(
             context: context,
             builder: (_) => ErrorMessageDialog(
-              titleText: "Error",
-              contentText: "Already registed by another user, please reset your device.",
-              buttonText: "RETRY",
+              titleText: LocaleKeys.error.tr(),
+              contentText: LocaleKeys.registeredOnUser.tr(),
+              buttonText: LocaleKeys.retry.tr(),
               onRetry: () {
                 _resetScan();
                 Navigator.pop(context);
@@ -193,7 +195,7 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => ConnectDevicePage(),
+                      builder: (_) => ConnectDevicePage(isResetWifi: false),
                     ),
                   );
         }, orElse: () async {
@@ -237,12 +239,12 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
               ),
             ),
           ),
-          const Positioned(
+           Positioned(
             top: 50,
             left: 0,
             right: 0,
             child: Text(
-              "Scan QR Code Device",
+              LocaleKeys.scanQrCode.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
