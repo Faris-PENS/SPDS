@@ -83,9 +83,8 @@ void _showQR(BuildContext context) {
       builder: (_) => AlertDialog(
         title: Text(LocaleKeys.delete.tr()),
         content: Text(
-          isSharedDevice
-              ? LocaleKeys.disconnectDevice.tr()
-              : LocaleKeys.thisActionWillTerminateConnection.tr(),
+         LocaleKeys.disconnectDevice.tr()
+         
         ),
         actions: [
           TextButton(

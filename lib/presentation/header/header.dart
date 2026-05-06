@@ -6,6 +6,8 @@ import 'provider/provider.dart';
 import 'package:spds/data/model/all_data.dart';
 import 'package:spds/data/model/topic_mqtt.dart';
 import 'package:spds/core/mqtt/mqtt_provider.dart';
+import 'package:spds/core/gen/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HeaderWidget extends ConsumerStatefulWidget {
   const HeaderWidget({super.key});
@@ -21,13 +23,28 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
   void initState() {
     super.initState();
     loadEsp();
-    debugPrint("INIT STATE JALAN");
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setupMqttListener();
+    });
+
+    debugPrint("INITSSSSSSSSSSSS");
   }
 
   Future<void> loadEsp() async {
     esp = await LocalSession.loadSessiondevice();
     setState(() {});
   }
+
+ void setupMqttListener() {
+  final mqtt = ref.read(mqttProvider);
+  if (mqtt == null) return;
+
+  mqtt.onConnecting = () {
+      ref.read(statusProvider.notifier).update(ConnectionStatus(2));
+  };
+
+}
 
   bool get isConnected {
     final status = ref.read(statusProvider);
@@ -43,7 +60,6 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
     final status = statusProv?.status ?? 0;
 
     final mqtt = ref.read(mqttProvider);
-
     final topics = MqttTopics.fromEspId(esp ?? "");
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -70,8 +86,8 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "VIXMO 3 PHASE-$esp",
-                      style: const TextStyle(
+                      "VIXMO-SPDS-$esp",
+                      style:  TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -79,11 +95,15 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      status == 1 ? "CONNECTED" : "DISCONNECTED",
+                      status == 0
+                          ? LocaleKeys.disconnected.tr().toUpperCase()
+                          : status == 1
+                              ? LocaleKeys.connected.tr().toUpperCase()
+                              : LocaleKeys.connecting.tr().toUpperCase(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 13,
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white
                       ),
                     ),
                   ],
@@ -118,7 +138,9 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        isAuto ? "MANUAL" : "AUTO",
+                        isAuto
+                            ? LocaleKeys.manual.tr().toUpperCase()
+                            : LocaleKeys.auto.tr().toUpperCase(),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,

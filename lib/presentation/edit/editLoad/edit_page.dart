@@ -5,6 +5,8 @@ import 'package:spds/presentation/header/header.dart';
 import 'provider/provider.dart';
 import 'widget/rename_form_widgets.dart';
 import '../../common/message_dialog.dart';
+import 'package:spds/core/gen/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RenamePage extends ConsumerStatefulWidget {
   final int index;
@@ -65,7 +67,7 @@ class _RenamePageState extends ConsumerState<RenamePage> {
           showDialog(
             context: context,
             builder: (_) => ErrorMessageDialog(
-              titleText: "Failed to Update Load",
+              titleText: LocaleKeys.failedToUpdate.tr(),
               contentText: e.toString(),
               onRetry: () {
                 Navigator.pop(context);
@@ -96,8 +98,8 @@ class _RenamePageState extends ConsumerState<RenamePage> {
 
           const SizedBox(height: 20),
 
-          const RenameSectionTitle(
-            title: 'Device Type',
+           RenameSectionTitle(
+            title: LocaleKeys.deviceType.tr(),
             color: Colors.white,
           ),
 
@@ -121,8 +123,8 @@ class _RenamePageState extends ConsumerState<RenamePage> {
             hintStyle: const TextStyle(color: Colors.white54),
           ),
 
-          const RenameSectionTitle(
-            title: 'Device Name',
+           RenameSectionTitle(
+            title: LocaleKeys.deviceName.tr(),
             color: Colors.white,
           ),
 
@@ -131,8 +133,9 @@ class _RenamePageState extends ConsumerState<RenamePage> {
             hintText: 'Nama device',
           ),
 
-          const RenameSectionTitle(
-            title: 'Asset Number',
+           RenameSectionTitle(
+            title: LocaleKeys.assetNumber.tr(),
+            color: Colors.white,
           ),
 
           RenameTextInput(
@@ -140,8 +143,9 @@ class _RenamePageState extends ConsumerState<RenamePage> {
             hintText: 'Asset Number',
           ),
 
-          const RenameSectionTitle(
-            title: 'Location',
+           RenameSectionTitle(
+            title: LocaleKeys.loadLocation.tr(),
+            color: Colors.white,
           ),
 
           RenameTextInput(

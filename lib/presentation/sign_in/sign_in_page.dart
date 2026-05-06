@@ -71,7 +71,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               children: [
                const SizedBox(height: 20),
                 Text(
-                  LocaleKeys.greetings.tr(),
+                  LocaleKeys.welcome.tr(),
                   style: const TextStyle(fontSize: 18),
                 ),
                 Text(
@@ -88,7 +88,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   child: TextField(
                     controller: userCtrl,
                     decoration: InputDecoration(
-                      hintText: LocaleKeys.emailOrPhone.tr(),
+                      hintText: LocaleKeys.username.tr(),
                       filled: true,
                       fillColor: Colors.grey[200],
                       border: OutlineInputBorder(

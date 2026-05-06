@@ -6,6 +6,9 @@ import 'package:spds/presentation/main_page/provider/device_provider.dart';
 import 'widget/device_card.dart';
 import 'package:spds/presentation/page_init/init_device.dart';
 import 'package:spds/presentation/page_init/qr_page.dart';
+import 'package:spds/core/gen/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:wifi_iot/wifi_iot.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -23,6 +26,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      WiFiForIoTPlugin.forceWifiUsage(false);
       ref.read(deviceProvider.notifier).getDevices();
       ref.read(sharedDeviceProvider.notifier).getShared();
     });
@@ -53,7 +57,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 vertical: height * 0.02,
               ),
               child: Text(
-                "Selamat Datang",
+                LocaleKeys.welcome.tr(),
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -71,7 +75,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                   children: [
                     Text(
-                      "Devices",
+                      LocaleKeys.device.tr(),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     SizedBox(height: height * 0.01),
@@ -125,7 +129,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                     SizedBox(height: height * 0.02),
                     Text(
-                      "Shared Devices",
+                      LocaleKeys.sharedDevices.tr(),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     SizedBox(height: height * 0.01),
@@ -140,8 +144,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                         success: (data) {
                           if (data.isEmpty) {
-                            return const Center(
-                                child: Text("Tidak ada shared device"));
+                            return  Center(
+                                child: Text(LocaleKeys.noSharedDevices.tr()));
                           }
 
                           return RawScrollbar(
@@ -191,11 +195,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const InitPage()),
+                      MaterialPageRoute(builder: (_) => const InitPage(isResetWifi: false,)),
                     );
                   },
                   child: Text(
-                    "+ Tambahkan Perangkat Baru",
+                    LocaleKeys.addNewDevice.tr(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -223,7 +227,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     );
                   },
                   child: Text(
-                    "+ Hubungkan Perangkat Dibagikan",
+                    LocaleKeys.addNewSharedDevice.tr(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme

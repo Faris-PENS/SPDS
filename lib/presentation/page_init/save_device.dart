@@ -5,6 +5,9 @@ import 'package:spds/presentation/page_init/provider/newdevice.dart';
 import 'package:spds/data/datasource/local/session.dart';
 // import 'package:spds/presentation/monitoring_wrapper/wrapper.dart';
 import 'package:spds/presentation/main_page/main_page.dart';
+import 'package:spds/core/gen/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class saveDevice extends ConsumerStatefulWidget {
   const saveDevice({super.key});
@@ -12,6 +15,8 @@ class saveDevice extends ConsumerStatefulWidget {
   @override
   ConsumerState<saveDevice> createState() => _saveDeviceState();
 }
+
+
 
 class _saveDeviceState extends ConsumerState<saveDevice> {
   final devicelocatuion = TextEditingController();
@@ -21,6 +26,7 @@ class _saveDeviceState extends ConsumerState<saveDevice> {
   final maxampsUPS = TextEditingController();
 
   final session = LocalSession.loadSessiondevice();
+
 
   Widget _input(TextEditingController c, String hint) {
     return TextField(
@@ -64,7 +70,7 @@ class _saveDeviceState extends ConsumerState<saveDevice> {
         error: (e) {
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Failed to Register Device: $e")),
+            SnackBar(content: Text("${LocaleKeys.failedToRegister.tr()}: $e")),
           );
         },
         orElse: () {},
@@ -79,9 +85,9 @@ class _saveDeviceState extends ConsumerState<saveDevice> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Center(
+                 Center(
                   child: Text(
-                    "Setting your Device",
+                    LocaleKeys.edit.tr(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -174,7 +180,7 @@ class _saveDeviceState extends ConsumerState<saveDevice> {
 
                     if (deviceId == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Device tidak ditemukan")),
+                       SnackBar(content: Text(LocaleKeys.deviceNotFound.tr())),
                 );
                     return;
                   }
@@ -195,9 +201,10 @@ class _saveDeviceState extends ConsumerState<saveDevice> {
                     ),
                     child: state.isLoading ? const CircularProgressIndicator(color: Colors.white,) 
                     : Text(
-                      "UPDATE",
-                      style: TextStyle(
+                     LocaleKeys.update.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Colors.white,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

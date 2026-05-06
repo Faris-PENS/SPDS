@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:spds/presentation/page_init/qr_page.dart';
-
+import 'package:spds/core/gen/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:spds/presentation/page_init/pair_deviceAP.dart';
 class InitPage extends StatefulWidget {
-  const InitPage({super.key});
 
+  final bool isResetWifi;
+
+  const InitPage({super.key, required this.isResetWifi});
   @override
   State<InitPage> createState() => _InitPage();
 }
@@ -43,8 +47,8 @@ class _InitPage extends State<InitPage> {
               ),
 
               const SizedBox(height: 28),
-              const Text(
-                "Power Up the Device and wait untill blue\nindicator start flahsesup",
+               Text(
+                  LocaleKeys.powerupDevice.tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -64,9 +68,9 @@ class _InitPage extends State<InitPage> {
                       setState(() => isChecked = value!);
                     },
                   ),
-                  const Expanded(
+                   Expanded(
                     child: Text(
-                      "Is Indicator flashes up?",
+                      LocaleKeys.isIndicatorOn.tr(),
                       style: TextStyle(
                         fontSize: 18 ,
                         fontWeight: FontWeight.bold,
@@ -90,6 +94,14 @@ class _InitPage extends State<InitPage> {
                       ),
                     ),
                     onPressed: () {
+                      widget.isResetWifi
+                          ? Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ConnectDevicePage(isResetWifi: true),
+                              ),
+                            )
+                          :
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -97,8 +109,8 @@ class _InitPage extends State<InitPage> {
                         ),
                       );
                     },
-                    child: const Text(
-                      "NEXT",
+                    child:  Text(
+                      LocaleKeys.next.tr(),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -109,8 +121,9 @@ class _InitPage extends State<InitPage> {
                 ),
               ),
               SizedBox(height: 20),
-              const Text(
-                "If indicator not flashes up, try hard resetting by pressing red button on left side device for 3 second",
+               Text(
+
+                LocaleKeys.resetInfo.tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
               ),

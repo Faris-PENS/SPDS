@@ -105,7 +105,7 @@ class MessageDialog extends StatelessWidget {
                                     Navigator.of(context).pop();
                                   },
                               child: Text(
-                                buttonText ?? LocaleKeys.goIt.tr(),
+                                buttonText ?? LocaleKeys.next.tr(),
                               ),
                             ),
                           ),

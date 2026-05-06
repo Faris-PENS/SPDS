@@ -61,7 +61,7 @@ class LoginNotifier extends StateNotifier<ResultState<bool>> {
       }
 
       FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
-        print("🔄 Refresh token: $newToken");
+        print("Refresh token: $newToken");
         await _tokenSupabase.saveToken(newToken);
       });
     } catch (e) {
