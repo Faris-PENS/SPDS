@@ -22,14 +22,14 @@ class MqttTopics {
 
   factory MqttTopics.fromEspId(String espId) {
     return MqttTopics(
-      subPhase: "$espId/Esp32/Phase",
-      subMode: "$espId/Esp32/Mode",
-      subStatus: "$espId/Esp32/Status",
-      subCurrent: "$espId/Esp32/Arus",
-      subBalance: "$espId/Esp32/Balanceable",
-      pubPhase: "$espId/Flutter/Phase",
-      pubMode: "$espId/Flutters/Mode",
-      pubStatus: "$espId/Flutters/Status",
+      subPhase: "dev/ai/vixmo/mcu/SPDS/$espId/loadData",
+      subMode: "dev/ai/vixmo/mcu/SPDS/$espId/mode",
+      subStatus: "dev/ai/vixmo/mcu/SPDS/$espId/status",
+      subCurrent: "dev/ai/vixmo/mcu/SPDS/$espId/currentData",
+      subBalance: "dev/ai/vixmo/mcu/SPDS/$espId/isBalance",
+      pubPhase: "dev/ai/vixmo/maa/SPDS/$espId/loadData",
+      pubMode: "dev/ai/vixmo/maa/SPDS/$espId/mode",
+      pubStatus: "dev/ai/vixmo/maa/SPDS/$espId/status",
     );
   }
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'dart:io';
@@ -9,34 +10,39 @@ class MqttClientCore {
   late MqttServerClient client;
   final MqttTopics topics;
   StreamSubscription? _updatesSubscription;
-
+  Function()? onConnecting;
   MqttClientCore(this.topics);
-
+  bool reconnect = false;
   Future<void> connect(String clientId) async {
 
-  
-    client = MqttServerClient.withPort('4db5068a397f4f9bb1156a1fd4c038df.s1.eu.hivemq.cloud', clientId, 8883);
-    client.secure = true;
+
+    client = MqttServerClient('mqtt.vixmo.ai', clientId);
+    client.port = 1885;
+    // client.secure = true;
     client.securityContext = SecurityContext.defaultContext;
     client.keepAlivePeriod = 10;
     client.autoReconnect = true;
 
     client.connectionMessage = MqttConnectMessage()
         .withClientIdentifier(clientId)
-        .authenticateAs('Fariscoba', 'Faris123')
+        .authenticateAs('vixmo', 'vixmo123098*')
         .withWillTopic(topics.pubStatus)
         .withWillMessage('{"status": 0}')
         .withWillQos(MqttQos.exactlyOnce)
-        .withWillRetain()
         // .keepAliveFor(3)
         .startClean();
 
     client.onConnected = () {
     publish(topics.pubStatus, '{"status": 1}');
+    reconnect = false;
     };
 
     client.onAutoReconnect = () {
-      print("Auto reconnecting...");
+     if (onConnecting != null) {
+    onConnecting!();
+  }
+    print("MQTT AUTO RECONNECTING...");
+     
     };
     await client.connect();
 
