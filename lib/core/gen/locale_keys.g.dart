@@ -15,7 +15,10 @@ abstract class  LocaleKeys {
   static const signOut = 'signOut';
   static const signIn = 'signIn';
   static const hello = 'hello';
+  static const confirm = 'confirm';
+  static const areYouSureYouWantTo = 'areYouSureYouWantTo';
   static const retry = 'retry';
+  static const enter = 'enter';
   static const ok = 'ok';
   static const failed = 'failed';
   static const failedToSignIn = 'failedToSignIn';
@@ -37,6 +40,7 @@ abstract class  LocaleKeys {
   static const sharedDevices = 'sharedDevices';
   static const cancel = 'cancel';
   static const delete = 'delete';
+  static const deleteDevivedesc = 'deleteDevivedesc';
   static const initDevice = 'initDevice';
   static const isIndicatorOn = 'isIndicatorOn';
   static const next = 'next';
