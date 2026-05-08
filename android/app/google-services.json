@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "639558328646",
+    "project_id": "vixmo-98f15",
+    "storage_bucket": "vixmo-98f15.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639558328646:android:3a6cec70d8e4a4edf80547",
+        "android_client_info": {
+          "package_name": "ai.vixmo.SPDS"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4qtq398HzIAeXoeqjgj3ixKfV8th-Ixw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639558328646:android:319406fa9913cfe7f80547",
+        "android_client_info": {
+          "package_name": "ai.vixmo.maa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4qtq398HzIAeXoeqjgj3ixKfV8th-Ixw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-package com.example.spds
+package ai.vixmo.SPDS
 
 import io.flutter.embedding.android.FlutterActivity
 
