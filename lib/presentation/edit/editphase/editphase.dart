@@ -7,8 +7,7 @@ import 'package:spds/core/gen/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spds/presentation/main_page/main_page.dart';
 import 'package:spds/presentation/page_init/init_device.dart';
-import 'package:spds/core/gen/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:spds/presentation/common/circular_progress_indicator.dart';
 
 class Editphase extends ConsumerStatefulWidget {
   final String deviceId;
@@ -25,7 +24,7 @@ class _EditphaseState extends ConsumerState<Editphase> {
   final maxampsS = TextEditingController();
   final maxampsT = TextEditingController();
   final maxampsUPS = TextEditingController();
-  
+
   bool _loadingData = true;
 
   @override
@@ -96,7 +95,7 @@ class _EditphaseState extends ConsumerState<Editphase> {
 
     if (_loadingData) {
       return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+        body: Center(child: EngganoCircularProgressIndicator()),
       );
     }
 
@@ -222,7 +221,7 @@ class _EditphaseState extends ConsumerState<Editphase> {
                                 );
                           },
                     child: state.isLoading
-                        ? const CircularProgressIndicator(color: Colors.white)
+                        ? const EngganoCircularProgressIndicator()
                         :  Text(LocaleKeys.update.tr()),
                   ),
                 ),

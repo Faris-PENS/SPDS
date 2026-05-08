@@ -7,6 +7,7 @@ import 'package:spds/data/datasource/local/session.dart';
 import 'package:spds/presentation/page_init/pair_wifiESP.dart';
 import 'package:spds/core/gen/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:spds/presentation/common/circular_progress_indicator.dart';
 
 class ConnectDevicePage extends StatefulWidget {
   final bool isResetWifi;
@@ -110,7 +111,7 @@ class _ConnectDevicePageState extends State<ConnectDevicePage>
               ),
               const SizedBox(height: 24),
               isLoading
-                  ? const CircularProgressIndicator()
+                  ? const EngganoCircularProgressIndicator()
                   : Text(
                       deviceSSID ,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),

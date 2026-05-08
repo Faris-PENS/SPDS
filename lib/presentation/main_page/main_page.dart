@@ -9,6 +9,7 @@ import 'package:spds/presentation/page_init/qr_page.dart';
 import 'package:spds/core/gen/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:wifi_iot/wifi_iot.dart';
+import 'package:spds/presentation/common/circular_progress_indicator.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -83,7 +84,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       height: height * 0.25,
                       child: deviceState.maybeWhen(
                         loading: () =>
-                            const Center(child: CircularProgressIndicator()),
+                            const Center(child: EngganoCircularProgressIndicator()),
                         error: (e) => Text(
                           e.toString(),
                           style: const TextStyle(color: Colors.red),
@@ -113,10 +114,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     hwid: d['HWID'] ?? '-',
                                     isShared: false,
                                     isSharedDevice: false,
-                                    onDeleted: () {
-                                      ref
-                                          .read(deviceProvider.notifier)
-                                          .getDevices();
+                                    onDeleted: () async {
+                                      await ref.read(deviceProvider.notifier).getDevices();
                                     },
                                   );
                                 },
@@ -137,7 +136,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       height: height * 0.30,
                       child: sharedState.maybeWhen(
                         loading: () =>
-                            const Center(child: CircularProgressIndicator()),
+                            const Center(child: EngganoCircularProgressIndicator()),
                         error: (e) => Text(
                           e.toString(),
                           style: const TextStyle(color: Colors.red),
@@ -167,10 +166,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     isShared: false,
                                     isSharedDevice: true,
                                     onDeleted: () async {
-                                      await ref
-                                          .read(sharedDeviceProvider.notifier)
-                                          .getShared();
-                                    },
+                                      await ref.read(sharedDeviceProvider.notifier).getShared();  },
                                   );
                                 },
                               ),

@@ -6,7 +6,7 @@ import 'package:spds/data/domain/entities/result.dart';
 import 'provider/auth.dart';
 import '../common/message_dialog.dart';
 import 'package:spds/presentation/main_page/main_page.dart';
-
+import 'package:spds/presentation/common/circular_progress_indicator.dart';
 // import 'package:spds/presentation/home_page/home_page.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
@@ -22,8 +22,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final userCtrl = TextEditingController();
   final passCtrl = TextEditingController();
   bool obscure = true;
-
-  
 
 
   @override
@@ -158,7 +156,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         ),
                       ),
                       child: state.isLoading
-                          ? const CircularProgressIndicator(
+                          ? const EngganoCircularProgressIndicator(
                               color: Colors.white,
                             )
                           : Text(LocaleKeys.signIn.tr()),

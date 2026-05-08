@@ -10,7 +10,9 @@ import 'package:spds/presentation/header/provider/provider.dart';
 import 'package:spds/presentation/current/current_page.dart';
 import 'package:spds/presentation/load_page/load_page.dart';
 import 'package:spds/presentation/current/provider/provider.dart';
+import 'package:spds/presentation/common/circular_progress_indicator.dart';
 import 'widget/navbar.dart';
+
 
 class MainPage extends ConsumerStatefulWidget {
   const MainPage({super.key});
@@ -30,8 +32,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   @override
   void initState() {
-    super.initState();
-
+    super.initState();  
     setdev = SetDevice(ref);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -40,7 +41,7 @@ class _MainPageState extends ConsumerState<MainPage> {
     });
   }
 
-  void _resetAll() {;
+  void _resetAll() {
     ref.read(loadProvider.notifier).reset();
     ref.read(loadControlProvider.notifier).reset();
     ref.read(modeProvider.notifier).reset();
@@ -51,7 +52,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   Future<void> _initMain() async {
     if (_initialized) return;
-
+   
     await ref.read(loadDatabaseProvider.notifier).fetch();
 
     final esp = await LocalSession.loadSessiondevice();
@@ -88,7 +89,7 @@ class _MainPageState extends ConsumerState<MainPage> {
     setState(() => _currentIndex = index);
     _pageController.animateToPage(
       index,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 700),
       curve: Curves.easeInOut,
     );
   }
@@ -104,7 +105,7 @@ class _MainPageState extends ConsumerState<MainPage> {
     return Scaffold(
       body: _loading
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: EngganoCircularProgressIndicator(),
             )
           : PageView(
               controller: _pageController,

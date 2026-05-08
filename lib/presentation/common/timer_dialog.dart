@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class AppDialog {
-  static Future<void> showErrorDialog({
-    required int mode,
+class TimerDialog {
+  static Future<void> timerdialog({
     required BuildContext context,
     required String message,
-    required bool isForover,
+    required IconData icon,
+    required Color iconColor,
+   
     required int durasi,
     Duration? duration,
     VoidCallback? onClosed,
@@ -24,12 +25,16 @@ class AppDialog {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-            buildIcon(mode),
+              Icon(
+                icon,
+                color: iconColor,
+                size: 48,
+              ),
               const SizedBox(height: 12),
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -41,34 +46,11 @@ class AppDialog {
       ),
     );
 
-    if (!isForover) {
-      await Future.delayed(duration);
-      if (Navigator.canPop(context)) {
-        Navigator.pop(context);
-        onClosed?.call();
-      }
+    await Future.delayed(duration);
+
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+      onClosed?.call();
     }
   }
-
-  
-} 
-
-Widget buildIcon(int mode) {
-  switch (mode) {
-    case 1:
-      return const CircularProgressIndicator();
-    case 2:
-      return const Icon(
-        Icons.check_circle,
-        color: Colors.green,
-        size: 48,
-      );
-    case 3:
-      return const Icon(
-        Icons.error_outline,
-        color: Colors.red,
-        size: 48,
-      );
-    default:
-      return const SizedBox(); 
-  }}
+}

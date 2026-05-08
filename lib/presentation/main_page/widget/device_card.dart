@@ -13,6 +13,7 @@ import 'package:spds/presentation/common/custom_widget_dialog.dart';
 // import 'package:kp_spds/presentation/main_page/main_page.dart';
 
 import 'package:spds/presentation/edit/editphase/editphase.dart';
+import 'package:spds/presentation/common/confirmation_alert_dialog.dart';
 
 class DeviceNum extends ConsumerWidget {
   final String name;
@@ -76,52 +77,92 @@ void _showQR(BuildContext context) {
 }
 
 
-  Future<void> _deleteDevice(
-      BuildContext context, WidgetRef ref) async {
-    final confirm = await showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(LocaleKeys.delete.tr()),
-        content: Text(
-         LocaleKeys.disconnectDevice.tr()
+  // Future<void> _deleteDevice(
+  //     BuildContext context, WidgetRef ref) async {
+  //   final confirm = await showDialog(
+  //     context: context,
+  //     builder: (_) => AlertDialog(
+  //       title: Text(LocaleKeys.delete.tr()),
+  //       content: Text(
+  //        LocaleKeys.disconnectDevice.tr()
          
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(LocaleKeys.cancel.tr()),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, true),
-              // await ref.read(deviceProvider.notifier).getDevices();
+  //       ),
+  //       actions: [
+  //         TextButton(
+  //           onPressed: () => Navigator.pop(context, false),
+  //           child: Text(LocaleKeys.cancel.tr()),
+  //         ),
+  //         ElevatedButton(
+  //           onPressed: () => Navigator.pop(context, true),
+  //             // await ref.read(deviceProvider.notifier).getDevices();
                  
-            child: Text(LocaleKeys.delete.tr()),
+  //           child: Text(LocaleKeys.delete.tr()),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+
+  //   if (confirm != true) return;
+
+  //   try {
+  //     if (isSharedDevice) {
+  //       await SharedevSupabase().deleteSharedDevice(hwid: hwid);
+  //     } else {
+  //       await DeviceSupabase().deleteHWID(userdevice: hwid);
+  //     }      
+
+  //     if (!context.mounted) return;
+
+  //     // ScaffoldMessenger.of(context).showSnackBar(
+  //     //   SnackBar(content: Text(LocaleKeys.success.tr())),
+  //     // );
+
+  //     onDeleted(); 
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text(e.toString())),
+  //     );
+  //   }
+  // }
+
+
+
+   Future<void> _deleteDevices(
+      BuildContext context, WidgetRef ref) async {
+      showDialog(
+      context: context,
+      builder: (context) => ConfirmationAlertDialog(
+        title: LocaleKeys.areYouSureYouWantTo.tr(args: [
+          LocaleKeys.delete.tr(
+            args: [LocaleKeys.device.tr()],
           ),
-        ],
+        ]),
+        description: LocaleKeys.deleteDevivedesc.tr(),
+        onConfirm: () async {
+          Navigator.pop(context);
+          try {
+            if (isSharedDevice) {
+              await SharedevSupabase().deleteSharedDevice(hwid: hwid);
+            } else {
+              await DeviceSupabase().deleteHWID(userdevice: hwid);
+            }
+          onDeleted(); 
+            if (!context.mounted) return;
+
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(content: Text(LocaleKeys.success.tr())),
+            // );
+
+            
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(e.toString())),
+            );
+          
+          }
+        },
       ),
     );
-
-    if (confirm != true) return;
-
-    try {
-      if (isSharedDevice) {
-        await SharedevSupabase().deleteSharedDevice(hwid: hwid);
-      } else {
-        await DeviceSupabase().deleteHWID(userdevice: hwid);
-      }      
-
-      if (!context.mounted) return;
-
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.success.tr())),
-      // );
-
-      onDeleted(); 
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
-      );
-    }
   }
 
   @override
@@ -182,12 +223,12 @@ void _showQR(BuildContext context) {
               ),
               IconButton(
                 icon: const Icon(Icons.delete_outline, color: Colors.white, size: 30),
-                onPressed: () => _deleteDevice(context, ref),
+                onPressed: () => _deleteDevices(context, ref),
               ),
             ] else
               IconButton(
                 icon: const Icon(Icons.delete_outline, color: Colors.white, size: 30),
-                onPressed: () => _deleteDevice(context, ref),
+                onPressed: () => _deleteDevices(context, ref),
               ),
           ],
         ),

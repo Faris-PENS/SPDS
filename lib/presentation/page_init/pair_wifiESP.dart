@@ -9,6 +9,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:spds/presentation/page_init/save_device.dart';
 import 'package:spds/presentation/main_page/main_page.dart';
 import 'package:wifi_iot/wifi_iot.dart';
+import 'package:spds/presentation/common/loading_dialog.dart';
+import 'package:spds/presentation/common/circular_progress_indicator.dart';
 
 class WifiScanPage extends ConsumerStatefulWidget {
   final bool isResetWifi; 
@@ -79,20 +81,19 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
       next.maybeWhen(
         loading: () async {
           
-           AppDialog.showErrorDialog(
-            mode: 1,
-            isForover: true,
-            durasi: 0,
-            context: context, 
-            message: LocaleKeys.connecting.tr(),
-          );
+          //  TimerDialog.timerdialog(
+            
+          //   durasi: 0,
+          //   context: context, 
+          //   message: LocaleKeys.connecting.tr(),
+          // );
         },
         success: (_) async {
           if (Navigator.canPop(context)) Navigator.pop(context);
              await WiFiForIoTPlugin.forceWifiUsage(false);
-          await AppDialog.showErrorDialog(
-            mode: 2,
-            isForover: false,
+          await TimerDialog.timerdialog(
+            icon: Icons.check_circle_outline,
+            iconColor: Colors.green,
             durasi: 5,
             context: context,
             message: LocaleKeys.connected.tr(),
@@ -113,9 +114,9 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
         error: (e) async {
           if (Navigator.canPop(context)) Navigator.pop(context);
 
-          await AppDialog.showErrorDialog(
-            mode: 3,
-            isForover: false,
+          await TimerDialog.timerdialog(
+            icon: Icons.error_outline,
+            iconColor: Colors.red,
             durasi: 5,
             context: context,
             message: LocaleKeys.failedConnectWifi.tr(),
@@ -139,7 +140,7 @@ orElse: () async {},
 
           Expanded(
   child: isLoading
-      ? const Center(child: CircularProgressIndicator())
+      ? const Center(child: EngganoCircularProgressIndicator())
       : RefreshIndicator(
           onRefresh: _scanWifi,
           child: ListView.builder(
