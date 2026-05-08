@@ -9,32 +9,19 @@ class SharedevSupabase {
   Future<bool> deleteSharedDevice({required String hwid}) async {
     try {
       final username = await LocalSession.loadSessionuser();
-      if (username == null) return true;
-
-    
-      final res = await _client
-          .from('DeviceHW')
-          .select('id')
-          .eq('HWID', hwid)
-          .maybeSingle();
-      if (res == null) {
-        debugPrint("Device tidak ditemukan");
-        return true;
-      }
-
-      final deviceId = res['id'];
+      if (username == null) return false;
 
       await _client
           .from('sharedev')
           .delete()
-          .eq('HWID', deviceId)
-          .eq('user_id', username);
+          .eq('HWID', hwid)
+          .eq('user', username);
 
       debugPrint("shared device deleted");
-      return false;
+      return true;
     } catch (e) {
       debugPrint("deleteSharedDevice error: $e");
-      return true;
+      return false;
     }
   }
 
@@ -47,9 +34,11 @@ class SharedevSupabase {
       final res = await _client
           .from('sharedev')
           .select('DeviceHW(HWID,tempat)')
-          .eq('user_id', username);
+          .eq('user', username);
 
       final List<Map<String, dynamic>> devices = [];
+
+      print('fetchSharedDevice response: $res');
 
       for (var item in res) {
         final dev = item['DeviceHW'];
@@ -67,8 +56,6 @@ class SharedevSupabase {
 
   Future<bool> isRegistered({required String hwid}) async {
     try {
-      final username = await LocalSession.loadSessionuser();
-      if (username == null) return true;
 
       final device = await _client
           .from('DeviceHW')
@@ -94,24 +81,11 @@ class SharedevSupabase {
       final username = await LocalSession.loadSessionuser();
       if (username == null) return true;
 
-      final device = await _client
+      final checkowner = await _client
           .from('DeviceHW')
           .select('id')
           .eq('HWID', hwid)
           .maybeSingle();
-
-      if (device == null) {
-        print("Device tidak ditemukans");
-        return false;
-      }
-      final deviceId = device['id'];
-      print(  "deviceawdawdawdawdwadawdawdId: $deviceId, username: $username");
-
-      final checkowner = await _client
-    .from('DeviceHW')
-    .select()
-    .eq('id', deviceId) 
-    .maybeSingle();
 
     if (checkowner == null) {
       return false;
@@ -120,8 +94,8 @@ class SharedevSupabase {
     final shared = await _client
     .from('sharedev')
     .select()
-    .eq('HWID', deviceId)
-    .eq('user_id', username)
+    .eq('HWID', hwid)
+    .eq('user', username)
     .maybeSingle();
 
     if (shared != null) {
@@ -130,8 +104,8 @@ class SharedevSupabase {
 
 
   await _client.from('sharedev').insert({
-    'HWID': deviceId,
-    'user_id': username,
+    'HWID': hwid,
+    'user': username,
   });
 
 return false;

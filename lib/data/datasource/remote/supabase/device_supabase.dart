@@ -51,7 +51,7 @@ Future<List<Map<String, dynamic>>> fetchDevice() async {
    
       return List<Map<String, dynamic>>.from(res);
   
-    } catch (e) {
+    } catch (e) { 
       debugPrint("FETCH DEVICE ERROR: $e");
       return [];
     }
@@ -98,7 +98,7 @@ Future<List<Map<String, dynamic>>> fetchDevice() async {
       }
       else{
         return false;
-      }
+      } 
      
     } catch (e) {
       debugPrint('ensureRegistered error: $e');

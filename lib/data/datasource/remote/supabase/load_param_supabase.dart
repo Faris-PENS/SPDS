@@ -15,7 +15,7 @@ class LoadparamSupabase {
         .select()
         .eq('HWID', esp)
         .order('loadIndex');
-      //  print("RAW SUPABASE: $res");
+       print("RAW SUPABASE: $res");
     return List<Map<String, dynamic>>.from(res);
   } catch (e) {
     debugPrint("FETCH LOAD ERROR: $e");

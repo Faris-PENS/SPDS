@@ -1,8 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spds/core/mqtt/mqtt_msg_handler.dart';
+import 'package:spds/data/model/all_data.dart';
 import 'package:spds/data/model/topic_mqtt.dart';
 import 'package:spds/core/mqtt/mqtt_client.dart';
 import 'package:spds/core/mqtt/mqtt_provider.dart';
+import 'package:spds/presentation/header/provider/provider.dart';
+
 class SetDevice {
   final WidgetRef ref;
 
@@ -33,14 +36,14 @@ class SetDevice {
 
       mqttNotifier.clear();
     }
-  
+
     final newMqtt = MqttClientCore(newTopics);
 
     try {
       await newMqtt.connect(clientid);
 
       newMqtt.client.autoReconnect = true;
-
+  
       mqttNotifier.set(newMqtt);
 
       ref.read(currentEspProvider.notifier).state = hwid;
@@ -56,5 +59,7 @@ class SetDevice {
       newMqtt.subscribe(topic);
     }
     newMqtt.ensureUpdatesListener(ref.read(mqttHandlerProvider.notifier));
+
+   
   }
 }

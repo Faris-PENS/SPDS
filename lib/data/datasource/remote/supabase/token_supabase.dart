@@ -10,18 +10,9 @@ class TokenSupabase {
     try {
       final username = await LocalSession.loadSessionuser();
       if (username == null) return;
-      final user = await _client
-          .from('user')
-          .select('id')
-          .eq('user', username)
-          .maybeSingle();
-      if (user == null) {
-        debugPrint("User tidak ditemukan");
-        return;
-      }
 
-      await _client.from('user_tokens').upsert({
-        'user_id': user['id'],
+      await _client.from('user_token').upsert({
+        'user': username,
         'fcm_token': token,
       });
 
