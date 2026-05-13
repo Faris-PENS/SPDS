@@ -135,6 +135,8 @@ final loadCardProvider = Provider<List<LoadViewData>>((ref) {
         type: 0,
         location: "N/A",
         maxAmps: 10,
+        cutoff: false,
+        pushNotification: false,
       ),
     );
 
@@ -158,6 +160,8 @@ final loadCardProvider = Provider<List<LoadViewData>>((ref) {
       maxAmps: dbItem.maxAmps,
       arus: mqttItem.arus,
       phase: displayPhase ?? 'N',
+      cutoff: dbItem.cutoff,
+      pushNotification: dbItem.pushNotification,
     );
   });
 });
