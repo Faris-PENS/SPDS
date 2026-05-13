@@ -6,6 +6,7 @@ import 'package:spds/data/domain/entities/result.dart';
 import 'provider/auth.dart';
 import '../common/message_dialog.dart';
 import 'package:spds/presentation/main_page/main_page.dart';
+import 'package:spds/presentation/login/sign_up_page.dart';
 import 'package:spds/presentation/common/circular_progress_indicator.dart';
 // import 'package:spds/presentation/home_page/home_page.dart';
 
@@ -16,13 +17,10 @@ class LoginPage extends ConsumerStatefulWidget {
   ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-
-
 class _LoginPageState extends ConsumerState<LoginPage> {
   final userCtrl = TextEditingController();
   final passCtrl = TextEditingController();
   bool obscure = true;
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +60,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: ConstrainedBox(
-            constraints:
-                BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               const SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   LocaleKeys.welcome.tr(),
                   style: const TextStyle(fontSize: 18),
@@ -85,6 +84,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: TextField(
                     controller: userCtrl,
+                    style: const TextStyle(fontSize: 16, color: Colors.black),
                     decoration: InputDecoration(
                       hintText: LocaleKeys.username.tr(),
                       filled: true,
@@ -102,6 +102,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: TextField(
                     controller: passCtrl,
+                    style: const TextStyle(fontSize: 16, color: Colors.black),
                     obscureText: obscure,
                     decoration: InputDecoration(
                       hintText: LocaleKeys.password.tr(),
@@ -109,7 +110,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       fillColor: Colors.grey[200],
                       suffixIcon: IconButton(
                         icon: Icon(
-                            obscure ? Icons.visibility_off : Icons.visibility),
+                          obscure ? Icons.visibility_off : Icons.visibility,
+                        ),
                         onPressed: () {
                           setState(() => obscure = !obscure);
                         },
@@ -119,6 +121,32 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         borderSide: BorderSide.none,
                       ),
                     ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Don't have an Account?", style: TextStyle(color: Colors.black)),
+                      GestureDetector(
+                        onTap: () { 
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const SignUpPage()),
+                          );
+                        },
+                        child: const Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
 
@@ -147,7 +175,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 return;
                               }
 
-                               ref.read(loginProvider.notifier).login(user, pass) ;
+                              ref
+                                  .read(loginProvider.notifier)
+                                  .login(user, pass);
                             },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1E6FD9),
@@ -159,7 +189,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           ? const EngganoCircularProgressIndicator(
                               color: Colors.white,
                             )
-                          : Text(LocaleKeys.signIn.tr()),
+                          : Text(
+                              LocaleKeys.signIn.tr(),
+                              style: TextStyle(color: Colors.white),
+                            ),
                     ),
                   ),
                 ),

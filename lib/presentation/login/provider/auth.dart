@@ -7,12 +7,10 @@ import '../../../data/domain/entities/result.dart';
 import 'package:spds/core/exceptions.dart';
 import 'package:spds/data/datasource/remote/supabase/token_supabase.dart';
 
-final loginProvider =
-    StateNotifierProvider<LoginNotifier, ResultState<bool>>((ref) {
-  return LoginNotifier(
-    UserRemoteDatasource(),
-    TokenSupabase(),
-  );
+final loginProvider = StateNotifierProvider<LoginNotifier, ResultState<bool>>((
+  ref,
+) {
+  return LoginNotifier(UserRemoteDatasource(), TokenSupabase());
 });
 
 class LoginNotifier extends StateNotifier<ResultState<bool>> {
@@ -20,7 +18,7 @@ class LoginNotifier extends StateNotifier<ResultState<bool>> {
   final TokenSupabase _tokenSupabase;
 
   LoginNotifier(this._remote, this._tokenSupabase)
-      : super(const ResultState.init());
+    : super(const ResultState.init());
 
   Future<void> login(String user, String pass) async {
     state = const ResultState.loading();
@@ -44,10 +42,26 @@ class LoginNotifier extends StateNotifier<ResultState<bool>> {
     }
   }
 
+  Future<void> signup(String user, String pass) async {
+    state = const ResultState.loading();
+
+    try {
+      final success = await _remote.insertUser(user: user, password: pass);
+
+      if (success) {
+        state = const ResultState.success(true);
+      } else {
+        state = ResultState.error(AppCustomException('USER_EXISTS'),
+        );
+      }
+    } catch (e) {
+      state = ResultState.error(AppCustomException(e.toString()));
+    }
+  }
+
   Future<void> _initFCM() async {
     try {
-      final settings =
-          await FirebaseMessaging.instance.requestPermission();
+      final settings = await FirebaseMessaging.instance.requestPermission();
 
       print("Permission: ${settings.authorizationStatus}");
 
