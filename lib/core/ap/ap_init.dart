@@ -10,11 +10,7 @@ class ApService {
     Object? body,
     Map<String, String>? headers,
   }) {
-    return client.post(
-      Uri.parse(endpoint),
-      body: body,
-      headers: headers,
-    );
+    return client.post(Uri.parse(endpoint), body: body, headers: headers);
   }
 
   Future<http.Response> get(String endpoint) {

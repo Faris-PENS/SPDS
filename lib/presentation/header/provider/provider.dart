@@ -1,9 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spds/data/model/all_data.dart';
 
-
-final modeProvider =
-    StateNotifierProvider<ModeNotifier, ModeData?>(
+final modeProvider = StateNotifierProvider<ModeNotifier, ModeData?>(
   (ref) => ModeNotifier(),
 );
 
@@ -14,13 +12,12 @@ class ModeNotifier extends StateNotifier<ModeData?> {
     state = mode;
   }
 
-    void reset() {
-    state = ModeData(0); 
+  void reset() {
+    state = ModeData(0);
   }
 }
 
-final statusProvider =
-    StateNotifierProvider<StatusNotifier, ConnectionStatus?>(
+final statusProvider = StateNotifierProvider<StatusNotifier, ConnectionStatus?>(
   (ref) => StatusNotifier(),
 );
 
@@ -34,5 +31,4 @@ class StatusNotifier extends StateNotifier<ConnectionStatus?> {
   void reset() {
     state = ConnectionStatus(0);
   }
-
 }

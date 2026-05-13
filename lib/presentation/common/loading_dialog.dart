@@ -43,8 +43,6 @@ void showLoadingDialog(
     context: context,
     barrierDismissible: false,
     barrierColor: barrierColor,
-    builder: (_) => LoadingDialog(
-      bgColor: bgColor,
-    ),
+    builder: (_) => LoadingDialog(bgColor: bgColor),
   );
 }

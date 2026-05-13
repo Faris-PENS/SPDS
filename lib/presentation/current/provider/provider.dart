@@ -4,18 +4,17 @@ import 'package:spds/data/datasource/remote/supabase/device_supabase.dart';
 
 final phaseCurrentProvider =
     StateNotifierProvider<PhaseCurrentNotifier, List<PhaseData>>(
-  (ref) => PhaseCurrentNotifier(),
-);
+      (ref) => PhaseCurrentNotifier(),
+    );
 
-final balanceableProvider =
-    StateNotifierProvider<BalanceableNotifier, bool>(
+final balanceableProvider = StateNotifierProvider<BalanceableNotifier, bool>(
   (ref) => BalanceableNotifier(),
 );
 
 final maxArusProvider =
     StateNotifierProvider<MaxArusNotifier, Map<String, double>>(
-  (ref) => MaxArusNotifier(),
-);
+      (ref) => MaxArusNotifier(),
+    );
 
 class MaxArusNotifier extends StateNotifier<Map<String, double>> {
   MaxArusNotifier() : super({});
@@ -46,22 +45,17 @@ class PhaseCurrentNotifier extends StateNotifier<List<PhaseData>> {
   static const List<String> _phaseOrder = ['R', 'S', 'T', 'U'];
 
   PhaseCurrentNotifier()
-      : super(_phaseOrder.map((e) => PhaseData(e, 0)).toList());
+    : super(_phaseOrder.map((e) => PhaseData(e, 0)).toList());
 
   void updateFromMqtt(List<PhaseData> phases) {
     if (phases.isEmpty) return;
 
-    final next = {
-      for (final e in phases) e.phase.toUpperCase(): e.arus,
-    };
+    final next = {for (final e in phases) e.phase.toUpperCase(): e.arus};
 
-    final current = {
-      for (final e in state) e.phase.toUpperCase(): e.arus,
-    };
+    final current = {for (final e in state) e.phase.toUpperCase(): e.arus};
 
     state = [
-      for (final p in _phaseOrder)
-        PhaseData(p, next[p] ?? current[p] ?? 0),
+      for (final p in _phaseOrder) PhaseData(p, next[p] ?? current[p] ?? 0),
     ];
   }
 

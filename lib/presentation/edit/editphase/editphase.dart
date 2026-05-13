@@ -34,7 +34,6 @@ class _EditphaseState extends ConsumerState<Editphase> {
   }
 
   Future<void> _loadData() async {
-
     LocalSession.saveSessiondevice(hwidqr: widget.deviceId);
 
     final data = await ref.read(updateProvider.notifier).fetchDevice();
@@ -62,11 +61,11 @@ class _EditphaseState extends ConsumerState<Editphase> {
         // filled: true,
         // fillColor: Colors.grey.shade200,
         fillColor: Colors.white,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
         ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }
@@ -81,15 +80,17 @@ class _EditphaseState extends ConsumerState<Editphase> {
           if (!mounted) return;
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) =>  HomePage()),
+            MaterialPageRoute(builder: (_) => HomePage()),
           );
         },
         error: (e) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Error: $e")),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("Error: $e")));
         },
-        orElse: () {print("aaaa");},
+        orElse: () {
+          print("aaaa");
+        },
       );
     });
 
@@ -107,23 +108,25 @@ class _EditphaseState extends ConsumerState<Editphase> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 Center(
+                Center(
                   child: Text(
                     LocaleKeys.settingsYourDevice.tr(),
-                    style:  Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
                 const Divider(),
                 const SizedBox(height: 20),
 
-                  Text(LocaleKeys.deviceLocation.tr(), style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  const SizedBox(height: 10),
+                Text(
+                  LocaleKeys.deviceLocation.tr(),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
                 _input(devicelocatuion, LocaleKeys.deviceLocation.tr()),
 
                 const SizedBox(height: 20),
@@ -134,20 +137,26 @@ class _EditphaseState extends ConsumerState<Editphase> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           Text("MAX AMPS R", style: Theme.of( context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ), ),
-                           const SizedBox(height: 10),
+                          Text(
+                            "MAX AMPS R",
+                            style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 10),
                           _input(maxampsR, "R"),
                         ],
                       ),
                     ),
-                    const SizedBox(width:10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("MAX AMPS S", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+                          Text(
+                            "MAX AMPS S",
+                            style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
                           const SizedBox(height: 10),
                           _input(maxampsS, "S"),
                         ],
@@ -162,9 +171,13 @@ class _EditphaseState extends ConsumerState<Editphase> {
                   children: [
                     Expanded(
                       child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("MAX AMPS T", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+                          Text(
+                            "MAX AMPS T",
+                            style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
                           const SizedBox(height: 10),
                           _input(maxampsT, "T"),
                         ],
@@ -175,7 +188,11 @@ class _EditphaseState extends ConsumerState<Editphase> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("MAX AMPS UPS", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+                          Text(
+                            "MAX AMPS UPS",
+                            style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
                           const SizedBox(height: 10),
                           _input(maxampsUPS, "UPS"),
                         ],
@@ -185,7 +202,6 @@ class _EditphaseState extends ConsumerState<Editphase> {
                 ),
 
                 const SizedBox(height: 30),
-                
 
                 SizedBox(
                   width: double.infinity,
@@ -193,15 +209,20 @@ class _EditphaseState extends ConsumerState<Editphase> {
                   child: ElevatedButton(
                     onPressed: () => Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (_) =>  InitPage(isResetWifi: true)),
+                      MaterialPageRoute(
+                        builder: (_) => InitPage(isResetWifi: true),
+                      ),
                     ),
-                    child: Text(LocaleKeys.changeWifi.tr(), style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),),
+                    child: Text(
+                      LocaleKeys.changeWifi.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
-                 const SizedBox(height: 30),
+                const SizedBox(height: 30),
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -222,11 +243,9 @@ class _EditphaseState extends ConsumerState<Editphase> {
                           },
                     child: state.isLoading
                         ? const EngganoCircularProgressIndicator()
-                        :  Text(LocaleKeys.update.tr()),
+                        : Text(LocaleKeys.update.tr(), style: TextStyle(color: Colors.white)),
                   ),
                 ),
-
-               
               ],
             ),
           ),

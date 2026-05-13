@@ -36,15 +36,15 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
     setState(() {});
   }
 
- void setupMqttListener() {
-  final mqtt = ref.read(mqttProvider);
-  if (mqtt == null) return;
+  void setupMqttListener() {
+    final mqtt = ref.read(mqttProvider);
+    if (mqtt == null) return;
 
-  mqtt.onConnecting = () {
+
+    mqtt.onConnecting = () {
       ref.read(statusProvider.notifier).update(ConnectionStatus(2));
-  };
-
-}
+    };
+  }
 
   bool get isConnected {
     final status = ref.read(statusProvider);
@@ -71,9 +71,7 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
           bottom: 12,
         ),
         decoration: const BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: Colors.white, width: 0.5),
-          ),
+          border: Border(bottom: BorderSide(color: Colors.white, width: 0.5)),
           color: Colors.black,
         ),
         child: Padding(
@@ -87,7 +85,7 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
                   children: [
                     Text(
                       "VIXMO-SPDS-$esp",
-                      style:  TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -98,12 +96,12 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
                       status == 0
                           ? LocaleKeys.disconnected.tr().toUpperCase()
                           : status == 1
-                              ? LocaleKeys.connected.tr().toUpperCase()
-                              : LocaleKeys.connecting.tr().toUpperCase(),
+                          ? LocaleKeys.connected.tr().toUpperCase()
+                          : LocaleKeys.connecting.tr().toUpperCase(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 13,
-                        color: Colors.white
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -123,10 +121,7 @@ class _HeaderWidgetState extends ConsumerState<HeaderWidget> {
                                 .read(modeProvider.notifier)
                                 .update(ModeData(newMode));
 
-                            mqtt?.publish(
-                              topics.pubMode,
-                              '{"MODE": $newMode}',
-                            );
+                            mqtt?.publish(topics.pubMode, '{"MODE": $newMode}');
                           }
                         : null,
                     child: Container(

@@ -13,10 +13,10 @@ class CurrentCard extends StatelessWidget {
     required this.maxAmpere,
   });
 
- double get loadPercent {
-  if (maxAmpere <= 0) return 0;
-  return (ampere / maxAmpere) * 100;
-}
+  double get loadPercent {
+    if (maxAmpere <= 0) return 0;
+    return (ampere / maxAmpere) * 100;
+  }
   String get status {
     if (loadPercent <= 50) return 'Normal';
     if (loadPercent <= 70) return 'Medium Load';
@@ -34,8 +34,6 @@ class CurrentCard extends StatelessWidget {
     if (loadPercent <= 70) return Colors.orange;
     return Colors.red;
   }
-
-  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -103,7 +101,13 @@ class CurrentCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text('Load', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white  )),
+              const Text(
+                'Load',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
               const SizedBox(width: 6),
               Text(
                 '${loadPercent.toStringAsFixed(1)} %',
@@ -111,8 +115,8 @@ class CurrentCard extends StatelessWidget {
               ),
               Text(
                 ' / ${maxAmpere.toStringAsFixed(0)} A',
-                style: const TextStyle(color: Colors.white,),
-              )
+                style: const TextStyle(color: Colors.white),
+              ),
             ],
           ),
 

@@ -13,7 +13,6 @@ class CurrentPage extends ConsumerStatefulWidget {
 }
 
 class _CurrentPageState extends ConsumerState<CurrentPage> {
-
   @override
   void initState() {
     super.initState();
@@ -31,8 +30,7 @@ class _CurrentPageState extends ConsumerState<CurrentPage> {
 
     final values = phases.map((e) => e.arus).toList();
 
-    final totalCurrent =
-        values.isEmpty ? 0.0 : values.reduce((a, b) => a + b);
+    final totalCurrent = values.isEmpty ? 0.0 : values.reduce((a, b) => a + b);
 
     final averageLoad = values.isEmpty
         ? 0.0

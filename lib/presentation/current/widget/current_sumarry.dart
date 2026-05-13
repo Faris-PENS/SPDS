@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CurrentSummary extends StatelessWidget {
   final double totalCurrent;
   final String averageCurrent;
-  final double averageLoad; 
+  final double averageLoad;
 
   const CurrentSummary({
     super.key,
@@ -12,7 +12,11 @@ class CurrentSummary extends StatelessWidget {
     required this.averageLoad,
   });
 
-  Widget _summaryCard({required String title, required String value, double fontSize = 26}) {
+  Widget _summaryCard({
+    required String title,
+    required String value,
+    double fontSize = 26,
+  }) {
     return Container(
       // width: 12
       height: 100,
@@ -30,12 +34,20 @@ class CurrentSummary extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600,color: Colors.white),
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(height: 12),
           Text(
             value,
-            style:  TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
@@ -43,36 +55,36 @@ class CurrentSummary extends StatelessWidget {
   }
 
   @override
-Widget build(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 14),
-    child: Row(
-      children: [
-        Expanded(
-          child: _summaryCard(
-            title: 'Total Current',
-            value: '${totalCurrent.toStringAsFixed(0)} A',
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      child: Row(
+        children: [
+          Expanded(
+            child: _summaryCard(
+              title: 'Total Current',
+              value: '${totalCurrent.toStringAsFixed(0)} A',
+            ),
           ),
-        ),
-        const SizedBox(width: 8),
+          const SizedBox(width: 8),
 
-        Expanded(
-          child: _summaryCard(
-            title: 'Status',
-            value: '$averageCurrent',
-            fontSize: 20,
+          Expanded(
+            child: _summaryCard(
+              title: 'Status',
+              value: '$averageCurrent',
+              fontSize: 20,
+            ),
           ),
-        ),
-        const SizedBox(width: 8),
+          const SizedBox(width: 8),
 
-        Expanded(
-          child: _summaryCard(
-            title: 'Average Amps',
-            value: '${averageLoad.toStringAsFixed(0)} A',
+          Expanded(
+            child: _summaryCard(
+              title: 'Average Amps',
+              value: '${averageLoad.toStringAsFixed(0)} A',
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }

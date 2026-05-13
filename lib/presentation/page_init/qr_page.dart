@@ -80,7 +80,7 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
           buttonText: LocaleKeys.retry.tr(),
           onRetry: () {
             _resetScan();
-             Navigator.pop(context);
+            Navigator.pop(context);
           },
         ),
       );
@@ -90,7 +90,7 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
     if (widget.isForShareDevice) {
       final notifier = ref.read(shareDeviceProvider.notifier);
       await notifier.isRegistered(hwid);
-      print(  "hwiwadawdawdawd: $hwid");
+      print("hwiwadawdawdawd: $hwid");
       final state = ref.read(shareDeviceProvider);
       await state.maybeWhen(
         success: (_) async {
@@ -122,21 +122,19 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
                   buttonText: LocaleKeys.ok.tr(),
                   showCloseButton: false,
                   onButtonTap: () {
-                     _resetScan();
+                    _resetScan();
                     Navigator.pop(context);
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                        builder: (_) => HomePage(),
-                      ),
+                    // Navigator.pop(context);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => HomePage()),
+                      (route) => false,
                     );
-                    
                   },
                 ),
               );
             },
-            orElse: () => 
-            showDialog(
+            orElse: () => showDialog(
               context: context,
               builder: (_) => ErrorMessageDialog(
                 titleText: LocaleKeys.error.tr(),
@@ -166,14 +164,13 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
         },
         orElse: () async {},
       );
-    }
-    else {
-        final notifier = ref.read(newDeviceProvider.notifier);
-        await notifier.isRegistered(hwid);
+    } else {
+      final notifier = ref.read(newDeviceProvider.notifier);
+      await notifier.isRegistered(hwid);
 
-        final state = ref.read(newDeviceProvider);
-        await state.maybeWhen
-        (success: (_) {
+      final state = ref.read(newDeviceProvider);
+      await state.maybeWhen(
+        success: (_) {
           if (!mounted) return;
           showDialog(
             context: context,
@@ -189,20 +186,19 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
           );
         },
         error: (_) {
-
-            if (!mounted) return;
-              LocalSession.saveSessiondevice(hwidqr: hwid!);
-               Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ConnectDevicePage(isResetWifi: false),
-                    ),
-                  );
-        }, orElse: () async {
           if (!mounted) return;
-   
-        });
-      
+          LocalSession.saveSessiondevice(hwidqr: hwid!);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ConnectDevicePage(isResetWifi: false),
+            ),
+          );
+        },
+        orElse: () async {
+          if (!mounted) return;
+        },
+      );
     }
   }
 
@@ -239,7 +235,7 @@ class _QrScanPageState extends ConsumerState<QrScanPage>
               ),
             ),
           ),
-           Positioned(
+          Positioned(
             top: 50,
             left: 0,
             right: 0,

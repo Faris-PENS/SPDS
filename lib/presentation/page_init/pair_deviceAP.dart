@@ -11,7 +11,7 @@ import 'package:spds/presentation/common/circular_progress_indicator.dart';
 
 class ConnectDevicePage extends StatefulWidget {
   final bool isResetWifi;
-  
+
   const ConnectDevicePage({super.key, required this.isResetWifi});
 
   @override
@@ -22,7 +22,6 @@ class _ConnectDevicePageState extends State<ConnectDevicePage>
     with WidgetsBindingObserver {
   late String deviceSSID = "";
   bool isLoading = true;
-  
 
   @override
   void initState() {
@@ -32,7 +31,7 @@ class _ConnectDevicePageState extends State<ConnectDevicePage>
     cekuserwifi();
   }
 
-    Future<void> _loadHwid() async {
+  Future<void> _loadHwid() async {
     final getHwid = await LocalSession.loadSessiondevice();
     if (!mounted) return;
 
@@ -43,11 +42,10 @@ class _ConnectDevicePageState extends State<ConnectDevicePage>
   }
 
   Future<void> cekuserwifi() async {
-    
     final info = NetworkInfo();
 
     String? wifiName = await info.getWifiName();
-    print(  "wifi name: $wifiName");
+    print("wifi name: $wifiName");
     if (wifiName == null) {
       setingwifi();
       print("wifi no");
@@ -57,14 +55,14 @@ class _ConnectDevicePageState extends State<ConnectDevicePage>
     wifiName = wifiName.replaceAll('"', '');
     if (wifiName == deviceSSID) {
       if (!mounted) return;
-       Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                        builder: (_) => WifiScanPage(isResetWifi: widget.isResetWifi),
-                      ),
-                    );
-    } else {  
-          setingwifi();  
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => WifiScanPage(isResetWifi: widget.isResetWifi),
+        ),
+      );
+    } else {
+      setingwifi();
     }
   }
 
@@ -96,25 +94,31 @@ class _ConnectDevicePageState extends State<ConnectDevicePage>
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
           child: Column(
             children: [
-            Text(LocaleKeys.pairAP.tr(), textAlign: TextAlign.center, style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.bold)),
+              Text(
+                LocaleKeys.pairAP.tr(),
+                textAlign: TextAlign.center,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 18),
               Container(height: 1, color: Colors.white),
               const SizedBox(height: 28),
-               Text(LocaleKeys.connectAP.tr(),
+              Text(
+                LocaleKeys.connectAP.tr(),
                 textAlign: TextAlign.center,
-               style: Theme.of(context).textTheme
-                    .titleMedium
-                    ?.copyWith(fontWeight: FontWeight.bold),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 24),
               isLoading
                   ? const EngganoCircularProgressIndicator()
                   : Text(
-                      deviceSSID ,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                      deviceSSID,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
             ],
           ),

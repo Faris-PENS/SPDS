@@ -29,7 +29,7 @@ class SharedevSupabase {
     try {
       final username = await LocalSession.loadSessionuser();
 
-      if (username == null) return [];  
+      if (username == null) return [];
 
       final res = await _client
           .from('sharedev')
@@ -56,7 +56,6 @@ class SharedevSupabase {
 
   Future<bool> isRegistered({required String hwid}) async {
     try {
-
       final device = await _client
           .from('DeviceHW')
           .select('id')
@@ -67,55 +66,46 @@ class SharedevSupabase {
         debugPrint("Device tidak ditemukan");
         return false;
       }
-    
+
       return true;
     } catch (e) {
-      debugPrint("isShared error: $e");
+      debugPrint("isRegistered error: $e");
       return false;
     }
   }
 
-
   Future<bool> isShared({required String hwid}) async {
     try {
       final username = await LocalSession.loadSessionuser();
-      if (username == null) return true;
+      print("isShared username: $username");
+      if (username == null) return false;
 
       final checkowner = await _client
           .from('DeviceHW')
           .select('id')
           .eq('HWID', hwid)
+          .eq('user', username)
           .maybeSingle();
 
-    if (checkowner == null) {
+      if (checkowner != null) {
+        return true;
+      }
+
+      final shared = await _client
+          .from('sharedev')
+          .select()
+          .eq('HWID', hwid)
+          .eq('user', username)
+          .maybeSingle(); 
+
+      if (shared != null) {
+        return true;
+      }
+
+      await _client.from('sharedev').insert({'HWID': hwid, 'user': username});
       return false;
-    }
-
-    final shared = await _client
-    .from('sharedev')
-    .select()
-    .eq('HWID', hwid)
-    .eq('user', username)
-    .maybeSingle();
-
-    if (shared != null) {
-  return true;
-}
-
-
-  await _client.from('sharedev').insert({
-    'HWID': hwid,
-    'user': username,
-  });
-
-return false;
-   
     } catch (e) {
-      debugPrint("isShared error: $e");
       return true;
     }
   }
-
-
-
 }

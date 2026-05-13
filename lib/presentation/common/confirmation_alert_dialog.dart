@@ -25,7 +25,7 @@ class ConfirmationAlertDialog extends StatelessWidget {
   final DialogButtonType buttonType;
   final Function()? onConfirm;
   final Function()? onCancel;
-  
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -41,19 +41,16 @@ class ConfirmationAlertDialog extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text(title, style: Theme.of(context).textTheme.titleLarge),
                 if (description != null) ...[
                   const SizedBox(height: 8),
                   Text(
                     description!,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 16,
-                        ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(fontSize: 16),
                   ),
-                ]
+                ],
               ],
             ),
           ),
@@ -72,9 +69,7 @@ class ConfirmationAlertDialog extends StatelessWidget {
                       Navigator.pop(context);
                       onCancel?.call();
                     },
-                    child: Text(
-                      cancelText ?? LocaleKeys.cancel.tr(),
-                    ),
+                    child: Text(cancelText ?? LocaleKeys.cancel.tr()),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -82,9 +77,7 @@ class ConfirmationAlertDialog extends StatelessWidget {
                   child: buttonType == DialogButtonType.primary
                       ? ElevatedButton(
                           onPressed: onConfirm,
-                          child: Text(
-                            confirmText ?? LocaleKeys.enter.tr(),
-                          ),
+                          child: Text(confirmText ?? LocaleKeys.enter.tr()),
                         )
                       : OutlinedButton(
                           style: OutlinedButton.styleFrom(
@@ -93,15 +86,14 @@ class ConfirmationAlertDialog extends StatelessWidget {
                               width: 1,
                               style: BorderStyle.solid,
                             ),
-                            foregroundColor:
-                                Theme.of(context).colorScheme.error,
+                            foregroundColor: Theme.of(
+                              context,
+                            ).colorScheme.error,
                           ),
                           onPressed: onConfirm,
-                          child: Text(
-                            confirmText ?? LocaleKeys.confirm.tr(),
-                          ),
+                          child: Text(confirmText ?? LocaleKeys.confirm.tr()),
                         ),
-                )
+                ),
               ],
             ),
           ),

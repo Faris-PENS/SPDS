@@ -43,7 +43,7 @@ class SetDevice {
       await newMqtt.connect(clientid);
 
       newMqtt.client.autoReconnect = true;
-  
+
       mqttNotifier.set(newMqtt);
 
       ref.read(currentEspProvider.notifier).state = hwid;
@@ -59,7 +59,5 @@ class SetDevice {
       newMqtt.subscribe(topic);
     }
     newMqtt.ensureUpdatesListener(ref.read(mqttHandlerProvider.notifier));
-
-   
   }
 }

@@ -29,7 +29,9 @@ class _EngganoCircularProgressIndicatorState
   void initState() {
     super.initState();
     linearAnimationController = AnimationController(
-        duration: const Duration(milliseconds: 1500), vsync: this);
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
     linearAnimation =
         CurvedAnimation(parent: linearAnimationController, curve: Curves.linear)
           ..addListener(() {
@@ -39,7 +41,7 @@ class _EngganoCircularProgressIndicatorState
           });
     linearAnimationController.repeat();
   }
-  
+
   @override
   void dispose() {
     linearAnimationController.dispose();
@@ -72,7 +74,7 @@ class _EngganoCircularProgressIndicatorState
               ),
               thicknessUnit: GaugeSizeUnit.logicalPixel,
             ),
-          )
+          ),
         ],
       ),
     );

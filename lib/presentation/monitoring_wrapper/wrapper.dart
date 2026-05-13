@@ -13,7 +13,6 @@ import 'package:spds/presentation/current/provider/provider.dart';
 import 'package:spds/presentation/common/circular_progress_indicator.dart';
 import 'widget/navbar.dart';
 
-
 class MainPage extends ConsumerStatefulWidget {
   const MainPage({super.key});
 
@@ -26,18 +25,18 @@ class _MainPageState extends ConsumerState<MainPage> {
   final PageController _pageController = PageController();
 
   bool _initialized = false;
-  bool _loading = true; 
+  bool _loading = true;
 
   late SetDevice setdev;
 
   @override
   void initState() {
-    super.initState();  
+    super.initState();
     setdev = SetDevice(ref);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _resetAll();  
-      _initMain();   
+      _resetAll();
+      _initMain();
     });
   }
 
@@ -52,7 +51,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   Future<void> _initMain() async {
     if (_initialized) return;
-   
+
     await ref.read(loadDatabaseProvider.notifier).fetch();
 
     final esp = await LocalSession.loadSessiondevice();
@@ -81,7 +80,7 @@ class _MainPageState extends ConsumerState<MainPage> {
     _initialized = true;
 
     setState(() {
-      _loading = false; 
+      _loading = false;
     });
   }
 
@@ -104,9 +103,7 @@ class _MainPageState extends ConsumerState<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _loading
-          ? const Center(
-              child: EngganoCircularProgressIndicator(),
-            )
+          ? const Center(child: EngganoCircularProgressIndicator())
           : PageView(
               controller: _pageController,
               physics: const BouncingScrollPhysics(),

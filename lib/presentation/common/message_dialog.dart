@@ -65,19 +65,17 @@ class MessageDialog extends StatelessWidget {
                     children: [
                       Text(
                         titleText ?? "succes",
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: 20,
-                                ),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleMedium?.copyWith(fontSize: 20),
                       ),
                       if (contentText != null) ...[
                         const SizedBox(height: 8),
                         Text(
                           contentText!,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: 16,
-                                  ),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(fontSize: 16),
                         ),
                       ],
                       const SizedBox(height: 40),
@@ -100,13 +98,12 @@ class MessageDialog extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                               ),
-                              onPressed: onButtonTap ??
+                              onPressed:
+                                  onButtonTap ??
                                   () {
                                     Navigator.of(context).pop();
                                   },
-                              child: Text(
-                                buttonText ?? LocaleKeys.next.tr(),
-                              ),
+                              child: Text(buttonText ?? LocaleKeys.next.tr()),
                             ),
                           ),
                         ],

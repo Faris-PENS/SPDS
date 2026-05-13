@@ -13,7 +13,7 @@ import 'package:spds/presentation/common/loading_dialog.dart';
 import 'package:spds/presentation/common/circular_progress_indicator.dart';
 
 class WifiScanPage extends ConsumerStatefulWidget {
-  final bool isResetWifi; 
+  final bool isResetWifi;
   const WifiScanPage({super.key, required this.isResetWifi});
 
   @override
@@ -33,7 +33,7 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
   @override
   void initState() {
     super.initState();
-     WiFiForIoTPlugin.forceWifiUsage(true);
+    WiFiForIoTPlugin.forceWifiUsage(true);
     _scanWifi();
   }
 
@@ -44,8 +44,7 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
       if (ap.ssid.isEmpty) continue;
       if (ap.ssid.toUpperCase().contains("VIXMO")) continue;
 
-      if (!unique.containsKey(ap.ssid) ||
-          ap.level > unique[ap.ssid]!.level) {
+      if (!unique.containsKey(ap.ssid) || ap.level > unique[ap.ssid]!.level) {
         unique[ap.ssid] = ap;
       }
     }
@@ -57,7 +56,7 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
 
   Future<void> _scanWifi() async {
     setState(() => isLoading = true);
-     
+
     final can = await WiFiScan.instance.canStartScan();
 
     if (can == CanStartScan.yes) {
@@ -80,17 +79,22 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
     ref.listen(pairWifiProvider, (prev, next) async {
       next.maybeWhen(
         loading: () async {
-          
+          showLoadingDialog(
+            context,
+            bgColor: Colors.transparent,
+            barrierColor: null,
+          );
+
           //  TimerDialog.timerdialog(
-            
+
           //   durasi: 0,
-          //   context: context, 
+          //   context: context,
           //   message: LocaleKeys.connecting.tr(),
           // );
         },
         success: (_) async {
           if (Navigator.canPop(context)) Navigator.pop(context);
-             await WiFiForIoTPlugin.forceWifiUsage(false);
+          await WiFiForIoTPlugin.forceWifiUsage(false);
           await TimerDialog.timerdialog(
             icon: Icons.check_circle_outline,
             iconColor: Colors.green,
@@ -98,15 +102,11 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
             context: context,
             message: LocaleKeys.connected.tr(),
             onClosed: () {
-           
               Navigator.pushReplacement(
                 context,
                 widget.isResetWifi
                     ? MaterialPageRoute(builder: (_) => HomePage())
-                    :
-                MaterialPageRoute(
-                  builder: (_) => saveDevice(),
-                ),
+                    : MaterialPageRoute(builder: (_) => saveDevice()),
               );
             },
           );
@@ -123,7 +123,7 @@ class _WifiScanPageState extends ConsumerState<WifiScanPage> {
             // message: e.message,
           );
         },
-orElse: () async {},  
+        orElse: () async {},
       );
     });
 
@@ -132,43 +132,49 @@ orElse: () async {},
         padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
         child: Column(
           children: [
-               Text(
-                  LocaleKeys.connectWifi.tr(),
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+            Text(
+              LocaleKeys.connectWifi.tr(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
+            ),
 
-          Expanded(
-  child: isLoading
-      ? const Center(child: EngganoCircularProgressIndicator())
-      : RefreshIndicator(
-          onRefresh: _scanWifi,
-          child: ListView.builder(
-            itemCount: accessPoints.length,
-            itemBuilder: (_, i) {
-              final wifi = accessPoints[i];
-              final isSelected = selectedSSID == wifi.ssid;
+            Expanded(
+              child: isLoading
+                  ? const Center(child: EngganoCircularProgressIndicator())
+                  : RefreshIndicator(
+                      onRefresh: _scanWifi,
+                      child: ListView.builder(
+                        itemCount: accessPoints.length,
+                        itemBuilder: (_, i) {
+                          final wifi = accessPoints[i];
+                          final isSelected = selectedSSID == wifi.ssid;
 
-              return ListTile(
-                trailing: const Icon(Icons.wifi),
-                title: Text(wifi.ssid),
-                tileColor:
-                    isSelected ? Colors.blue.withOpacity(0.5) : null,
-                onTap: () {
-                  setState(() {
-                    selectedSSID = wifi.ssid;
-                    ssidController.text = wifi.ssid;
-                    passwordController.clear();
-                  });
+                          return ListTile(
+                            trailing: const Icon(Icons.wifi),
+                            title: Text(wifi.ssid),
+                            tileColor: isSelected
+                                ? Colors.blue.withOpacity(0.5)
+                                : null,
+                            onTap: () {
+                              setState(() {
+                                selectedSSID = wifi.ssid;
+                                ssidController.text = wifi.ssid;
+                                passwordController.clear();
+                              });
 
-                  FocusScope.of(context)
-                      .requestFocus(passwordFocus);
-                },
-              );
-            },
-          ),
-        ),
-),
+                              FocusScope.of(
+                                context,
+                              ).requestFocus(passwordFocus);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+            ),
             TextField(controller: ssidController, readOnly: true),
             const SizedBox(height: 10),
             TextField(controller: passwordController),
@@ -177,12 +183,11 @@ orElse: () async {},
 
             ElevatedButton(
               onPressed: () {
-                ref.read(pairWifiProvider.notifier).pairWifi(
-                      ssidController.text,
-                      passwordController.text,
-                    );
+                ref
+                    .read(pairWifiProvider.notifier)
+                    .pairWifi(ssidController.text, passwordController.text);
               },
-              child:  Text(LocaleKeys.connect.tr()),
+              child: Text(LocaleKeys.connect.tr()),
             ),
           ],
         ),

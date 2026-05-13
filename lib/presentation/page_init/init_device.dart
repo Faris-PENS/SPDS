@@ -3,8 +3,8 @@ import 'package:spds/presentation/page_init/qr_page.dart';
 import 'package:spds/core/gen/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spds/presentation/page_init/pair_deviceAP.dart';
-class InitPage extends StatefulWidget {
 
+class InitPage extends StatefulWidget {
   final bool isResetWifi;
 
   const InitPage({super.key, required this.isResetWifi});
@@ -23,14 +23,18 @@ class _InitPage extends State<InitPage> {
           color: Colors.black,
           // height: 700,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 80),
-          // padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
 
+          // padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           child: Column(
             children: [
               const Text(
                 "INIT DEVICE",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(height: 18),
               Container(height: 1, color: Colors.white),
@@ -47,10 +51,14 @@ class _InitPage extends State<InitPage> {
               ),
 
               const SizedBox(height: 28),
-               Text(
-                  LocaleKeys.powerupDevice.tr(),
+              Text(
+                LocaleKeys.powerupDevice.tr(),
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
               // const SizedBox(height: 24),
               Spacer(),
@@ -61,18 +69,20 @@ class _InitPage extends State<InitPage> {
                     hoverColor: Colors.white,
                     activeColor: Colors.white,
                     focusColor: Colors.white,
-                    fillColor: MaterialStateColor.resolveWith((states) => Colors.white),
+                    fillColor: MaterialStateColor.resolveWith(
+                      (states) => Colors.white,
+                    ),
                     value: true,
                     groupValue: isChecked,
                     onChanged: (value) {
                       setState(() => isChecked = value!);
                     },
                   ),
-                   Expanded(
+                  Expanded(
                     child: Text(
                       LocaleKeys.isIndicatorOn.tr(),
                       style: TextStyle(
-                        fontSize: 18 ,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -98,18 +108,19 @@ class _InitPage extends State<InitPage> {
                           ? Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => ConnectDevicePage(isResetWifi: true),
+                                builder: (_) =>
+                                    ConnectDevicePage(isResetWifi: true),
                               ),
                             )
-                          :
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => QrScanPage(isForShareDevice: false),
-                        ),
-                      );
+                          : Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    QrScanPage(isForShareDevice: false),
+                              ),
+                            );
                     },
-                    child:  Text(
+                    child: Text(
                       LocaleKeys.next.tr(),
                       style: TextStyle(
                         fontSize: 18,
@@ -121,11 +132,14 @@ class _InitPage extends State<InitPage> {
                 ),
               ),
               SizedBox(height: 20),
-               Text(
-
+              Text(
                 LocaleKeys.resetInfo.tr(),
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),

@@ -21,5 +21,5 @@ class TokenSupabase {
       debugPrint("Error saving token: $e");
     }
   }
-
+  
 }

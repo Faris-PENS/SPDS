@@ -20,7 +20,7 @@ class UserRemoteDatasource {
     }
   }
 
-  Future<String> insertUser({
+  Future<bool> insertUser({
     required String user,
     required String password,
   }) async {
@@ -32,17 +32,14 @@ class UserRemoteDatasource {
           .maybeSingle();
 
       if (check != null) {
-        return 'USER_EXISTS';
+        return false;
       }
 
-      await _client.from('user').insert({
-        'user': user,
-        'pass': password,
-      });
+      await _client.from('user').insert({'user': user, 'pass': password});
 
-      return 'SUCCESS';
+      return true;
     } catch (e) {
-      return 'ERROR: $e';
+      return false;
     }
   }
 

@@ -3,8 +3,9 @@ import 'package:spds/core/exceptions.dart';
 import 'package:spds/data/domain/entities/result.dart';
 import 'package:spds/data/datasource/remote/supabase/device_supabase.dart';
 
-final updateProvider =
-    StateNotifierProvider<updatePhase, ResultState<bool>>((ref) {
+final updateProvider = StateNotifierProvider<updatePhase, ResultState<bool>>((
+  ref,
+) {
   return updatePhase(DeviceSupabase());
 });
 
@@ -14,12 +15,13 @@ class updatePhase extends StateNotifier<ResultState<bool>> {
   updatePhase(this._remote) : super(const ResultState.init());
 
   Future<void> editphase(
-      String hwid,
-      String place,
-      double ampsR,
-      double ampsS,
-      double ampsT,
-      double ampsU) async {
+    String hwid,
+    String place,
+    double ampsR,
+    double ampsS,
+    double ampsT,
+    double ampsU,
+  ) async {
     state = const ResultState.loading();
 
     try {
@@ -36,7 +38,8 @@ class updatePhase extends StateNotifier<ResultState<bool>> {
         state = const ResultState.success(true);
       } else {
         state = ResultState.error(
-            AppCustomException('FAILED_TO_UPDATE_DEVICE'));
+          AppCustomException('FAILED_TO_UPDATE_DEVICE'),
+        );
       }
     } catch (e) {
       state = ResultState.error(AppCustomException(e.toString()));

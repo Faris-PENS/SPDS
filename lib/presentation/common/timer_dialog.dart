@@ -6,7 +6,7 @@ class TimerDialog {
     required String message,
     required IconData icon,
     required Color iconColor,
-   
+
     required int durasi,
     Duration? duration,
     VoidCallback? onClosed,
@@ -17,25 +17,19 @@ class TimerDialog {
       context: context,
       barrierDismissible: false,
       builder: (_) => Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                icon,
-                color: iconColor,
-                size: 48,
-              ),
+              Icon(icon, color: iconColor, size: 48),
               const SizedBox(height: 12),
               Text(
                 message,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),

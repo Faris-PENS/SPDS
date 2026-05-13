@@ -1,7 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spds/core/mqtt/mqtt_client.dart';
-
-
 final mqttProvider = StateNotifierProvider<MqttNotifier, MqttClientCore?>(
   (ref) => MqttNotifier(),
 );
@@ -19,5 +17,3 @@ class MqttNotifier extends StateNotifier<MqttClientCore?> {
 }
 
 final currentEspProvider = StateProvider<String?>((ref) => null);
-
-

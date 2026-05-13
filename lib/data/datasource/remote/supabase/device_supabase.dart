@@ -4,8 +4,7 @@ import 'package:spds/data/datasource/local/session.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DeviceSupabase {
-final SupabaseClient _client = SupabaseInit.client;
-
+  final SupabaseClient _client = SupabaseInit.client;
 
   Future<bool> deleteHWID({required String userdevice}) async {
     try {
@@ -36,48 +35,45 @@ final SupabaseClient _client = SupabaseInit.client;
     }
   }
 
-
-Future<List<Map<String, dynamic>>> fetchDevice() async {
-  final userdevice = await LocalSession.loadSessionuser();
-  if (userdevice == null) {
-    debugPrint('FETCH FAILED: no session');
-    return [];
-  }
+  Future<List<Map<String, dynamic>>> fetchDevice() async {
+    final userdevice = await LocalSession.loadSessionuser();
+    if (userdevice == null) {
+      debugPrint('FETCH FAILED: no session');
+      return [];
+    }
     try {
       final res = await _client
           .from('DeviceHW')
           .select()
           .eq('user', userdevice);
-   
+
       return List<Map<String, dynamic>>.from(res);
-  
-    } catch (e) { 
+    } catch (e) {
       debugPrint("FETCH DEVICE ERROR: $e");
       return [];
     }
   }
 
   Future<List<Map<String, dynamic>>> fetchDeviceedit() async {
-  final userdevice = await LocalSession.loadSessionuser();
-  if (userdevice == null) {
-    debugPrint('FETCH FAILED: no session');
-    return [];
-  }
+    final userdevice = await LocalSession.loadSessionuser();
+    if (userdevice == null) {
+      debugPrint('FETCH FAILED: no session');
+      return [];
+    }
 
-  final esp = await LocalSession.loadSessiondevice();
-  if (esp == null) {
-    debugPrint('FETCH FAILED: no device session');
-    return [];
-  }
+    final esp = await LocalSession.loadSessiondevice();
+    if (esp == null) {
+      debugPrint('FETCH FAILED: no device session');
+      return [];
+    }
     try {
       final res = await _client
           .from('DeviceHW')
           .select()
           // .eq('user', userdevice)
           .eq('HWID', esp);
-                 print("FETCH UPDATE DEVICE RESPONSE: $res");
+      print("FETCH UPDATE DEVICE RESPONSE: $res");
       return List<Map<String, dynamic>>.from(res);
-  
     } catch (e) {
       debugPrint("FETCH DEVICE ERROR: $e");
       return [];
@@ -86,7 +82,6 @@ Future<List<Map<String, dynamic>>> fetchDevice() async {
 
   Future<bool> isRegistered({required String hwid}) async {
     try {
-   
       final res = await _client
           .from('DeviceHW')
           .select()
@@ -95,37 +90,39 @@ Future<List<Map<String, dynamic>>> fetchDevice() async {
       if (res != null) {
         debugPrint('device already registered');
         return true;
-      }
-      else{
+      } else {
         return false;
-      } 
-     
+      }
     } catch (e) {
       debugPrint('ensureRegistered error: $e');
       return false;
     }
   }
 
-Future<bool> registerDevice({required String hwid, required String place, required double ampsR, required double ampsS, required double ampsT, required double ampsU}) async {
+  Future<bool> registerDevice({
+    required String hwid,
+    required String place,
+    required double ampsR,
+    required double ampsS,
+    required double ampsT,
+    required double ampsU,
+  }) async {
     try {
       final userid = await LocalSession.loadSessionuser();
       if (userid == null) {
         return false;
       }
 
-      final res = await _client
-          .from('DeviceHW')
-          .insert({
-            'user': userid,
-            'HWID': hwid,
-            'tempat': place,
-            'ampsR': ampsR,
-            'ampsS': ampsS,
-            'ampsT': ampsT,
-            'ampsU': ampsU,
-          })
-          .select(); 
-          print(  "REGISTER DEVICE RESPONSE: $res");
+      final res = await _client.from('DeviceHW').insert({
+        'user': userid,
+        'HWID': hwid,
+        'tempat': place,
+        'ampsR': ampsR,
+        'ampsS': ampsS,
+        'ampsT': ampsT,
+        'ampsU': ampsU,
+      }).select();
+      print("REGISTER DEVICE RESPONSE: $res");
 
       // if (res == null) {
       //   return false;
@@ -137,8 +134,14 @@ Future<bool> registerDevice({required String hwid, required String place, requir
     }
   }
 
-
-  Future<bool> updateDevice({required String hwid, required String location, required double ampsR, required double ampsS, required double ampsT, required double ampsU}) async {
+  Future<bool> updateDevice({
+    required String hwid,
+    required String location,
+    required double ampsR,
+    required double ampsS,
+    required double ampsT,
+    required double ampsU,
+  }) async {
     try {
       final userid = await LocalSession.loadSessionuser();
       if (userid == null) {
@@ -148,22 +151,21 @@ Future<bool> registerDevice({required String hwid, required String place, requir
       final res = await _client
           .from('DeviceHW')
           .update({
-          'tempat': location,
-          'ampsR': ampsR,
-          'ampsS': ampsS,
-          'ampsT': ampsT,
-          'ampsU': ampsU,
+            'tempat': location,
+            'ampsR': ampsR,
+            'ampsS': ampsS,
+            'ampsT': ampsT,
+            'ampsU': ampsU,
           })
           .eq('user', userid)
           .eq('HWID', hwid)
           .select();
-        print(  "UPDATE DEVICE RESPONSE: $res");
-   
+      print("UPDATE DEVICE RESPONSE: $res");
+
       return true;
     } catch (e) {
       debugPrint('updateDevice error: $e');
       return false;
-    }}
-
-
+    }
+  }
 }

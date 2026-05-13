@@ -95,10 +95,7 @@ class LoadCard extends StatelessWidget {
 
           const SizedBox(height: 10),
 
-          LoadCardCurrentSection(
-            arus: arus,
-            maxAmps: maxAmps,
-          ),
+          LoadCardCurrentSection( arus: arus, maxAmps: maxAmps),
 
           const SizedBox(height: 10),
 

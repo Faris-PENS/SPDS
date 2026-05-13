@@ -19,7 +19,9 @@ class BottomNav extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.black,
         // border: Border.all(color: Colors.white),
-        border: const Border(top: BorderSide(color: Colors.white,width: 0.5)),        // borderRadius: const BorderRadius.vertical(top: Radius.circular(0)),
+        border: const Border(
+          top: BorderSide(color: Colors.white, width: 0.5),
+        ), // borderRadius: const BorderRadius.vertical(top: Radius.circular(0)),
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
         ],
@@ -65,7 +67,7 @@ class BottomNav extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: color, size: 40, ),
+          Icon(icon, color: color, size: 40),
           AnimatedContainer(
             duration: const Duration(milliseconds: 250),
             height: 3,

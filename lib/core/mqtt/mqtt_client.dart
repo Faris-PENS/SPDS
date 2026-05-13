@@ -14,8 +14,6 @@ class MqttClientCore {
   MqttClientCore(this.topics);
   bool reconnect = false;
   Future<void> connect(String clientId) async {
-
-
     client = MqttServerClient('mqtt.vixmo.ai', clientId);
     client.port = 1885;
     // client.secure = true;
@@ -33,19 +31,17 @@ class MqttClientCore {
         .startClean();
 
     client.onConnected = () {
-    publish(topics.pubStatus, '{"status": 1}');
-    reconnect = false;
+      publish(topics.pubStatus, '{"status": 1}');
+      reconnect = false;
     };
 
     client.onAutoReconnect = () {
-     if (onConnecting != null) {
-    onConnecting!();
-  }
-    print("MQTT AUTO RECONNECTING...");
-     
+      if (onConnecting != null) {
+        onConnecting!();
+      }
+      print("mqtt rec");
     };
     await client.connect();
-
   }
 
   void ensureUpdatesListener(MqttMessageHandlerNotifier read) {

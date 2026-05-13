@@ -1,18 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spds/data/model/all_data.dart';
 
-final loadProvider =
-    StateNotifierProvider<LoadNotifier, List<LoadParam>>(
+final loadProvider = StateNotifierProvider<LoadNotifier, List<LoadParam>>(
   (ref) => LoadNotifier(),
 );
 
 class LoadNotifier extends StateNotifier<List<LoadParam>> {
-  LoadNotifier() : super(List.generate(
-      12,
-      (i) => LoadParam(load: i),
-    ));
+  LoadNotifier() : super(List.generate(12, (i) => LoadParam(load: i)));
 
-  void update(int load, {double? arus, String? phase, bool clearPhase = false}) {
+  void update(
+    int load, {
+    double? arus,
+    String? phase,
+    bool clearPhase = false,
+  }) {
     state = [
       for (final item in state)
         if (item.load == load)
@@ -22,7 +23,7 @@ class LoadNotifier extends StateNotifier<List<LoadParam>> {
             phase: clearPhase ? null : (phase ?? item.phase),
           )
         else
-          item
+          item,
     ];
   }
 

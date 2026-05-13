@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spds/core/ap/ap_init.dart';
 import 'package:spds/core/ap/ap_provider.dart';
 
-final apNotifierProvider =
-    NotifierProvider<ApNotifier, bool>(ApNotifier.new);
+final apNotifierProvider = NotifierProvider<ApNotifier, bool>(ApNotifier.new);
 
 class ApNotifier extends Notifier<bool> {
   late final ApService api;
@@ -22,13 +21,11 @@ class ApNotifier extends Notifier<bool> {
       final res = await api
           .post(
             "http://192.168.4.1/provision",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
             body: {"ssid": ssid, "password": password},
           )
           .timeout(const Duration(seconds: 5));
-        print("Provision response: ${res.statusCode}");
+      print("Provision response: ${res.statusCode}");
       print("Provision body: ${res.body}");
       state = false;
       return res.statusCode == 200;
@@ -44,12 +41,10 @@ class ApNotifier extends Notifier<bool> {
 
       final res = await api.post(
         "http://192.168.4.1/confirm",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
         body: "confirm=1",
       );
-         print("konfirmasi response: ${res.statusCode}");
+      print("konfirmasi response: ${res.statusCode}");
       print("konfirmasi body: ${res.body}");
 
       state = false;
@@ -68,8 +63,7 @@ class ApNotifier extends Notifier<bool> {
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         return data["state"];
-      }
-      else if (res.statusCode == 404) {
+      } else if (res.statusCode == 404) {
         return null;
       }
       return null;

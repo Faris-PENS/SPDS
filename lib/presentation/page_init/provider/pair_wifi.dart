@@ -2,11 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spds/data/domain/entities/result.dart';
 import 'package:spds/data/datasource/remote/AP/ESP/Esp_connect.dart';
 import 'package:spds/core/exceptions.dart';
+
 final pairWifiProvider =
     StateNotifierProvider<PairWifiNotifier, ResultState<bool>>((ref) {
-  final ds = ref.read(apNotifierProvider.notifier);
-  return PairWifiNotifier(ds);
-});
+      final ds = ref.read(apNotifierProvider.notifier);
+      return PairWifiNotifier(ds);
+    });
 
 class PairWifiNotifier extends StateNotifier<ResultState<bool>> {
   final ApNotifier ds;
@@ -14,54 +15,47 @@ class PairWifiNotifier extends StateNotifier<ResultState<bool>> {
   PairWifiNotifier(this.ds) : super(const ResultState.init());
 
   Future<void> pairWifi(String ssid, String password) async {
-  state = const ResultState.loading();
+    state = const ResultState.loading();
 
-  try {
-    final sendOk = await ds.sendCredential(ssid, password);
-    if (!sendOk) {
-      state = ResultState.error(
-        AppCustomException('FAILED_TO_SEND_CREDENTIALS'),
-      );
-      return;
-    }
-
-    String? status;
-    const timeout = Duration(seconds: 20);
-    final start = DateTime.now();
-
-    while (DateTime.now().difference(start) < timeout) {
-      status = await ds.statusEsp();
-
-      if (status == "connected") {
-        break;
-      }
-
-      if (status == "not_connected") {
+    try {
+      final sendOk = await ds.sendCredential(ssid, password);
+      if (!sendOk) {
         state = ResultState.error(
-          AppCustomException('WIFI_NOT_CONNECTED'),
+          AppCustomException('FAILED_TO_SEND_CREDENTIALS'),
         );
         return;
       }
-    }
 
-    if (status != "connected") {
-      state = ResultState.error(
-        AppCustomException('TIMEOUT_CONNECTION'),
-      );
-      return;
-    }
+      String? status;
+      const timeout = Duration(seconds: 20);
+      final start = DateTime.now();
 
-    final confirmOk = await ds.konfirmasiKonek();
-    if (confirmOk) {
-      state = ResultState.success(true);
-    } else {
-      state = ResultState.error(
-        AppCustomException('FAILED_CONFIRM'),
-      );
-    }
+      while (DateTime.now().difference(start) < timeout) {
+        status = await ds.statusEsp();
 
-  } catch (e) {
-    state = ResultState.error(AppCustomException(e.toString()));
+        if (status == "connected") {
+          break;
+        }
+
+        if (status == "not_connected") {
+          state = ResultState.error(AppCustomException('WIFI_NOT_CONNECTED'));
+          return;
+        }
+      }
+
+      if (status != "connected") {
+        state = ResultState.error(AppCustomException('TIMEOUT_CONNECTION'));
+        return;
+      }
+
+      final confirmOk = await ds.konfirmasiKonek();
+      if (confirmOk) {
+        state = ResultState.success(true);
+      } else {
+        state = ResultState.error(AppCustomException('FAILED_CONFIRM'));
+      }
+    } catch (e) {
+      state = ResultState.error(AppCustomException(e.toString()));
+    }
   }
-}
 }
