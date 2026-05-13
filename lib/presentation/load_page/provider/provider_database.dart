@@ -4,8 +4,8 @@ import 'package:spds/data/datasource/remote/supabase/load_param_supabase.dart';
 
 final loadDatabaseProvider =
     StateNotifierProvider<LoadDatabaseNotifier, List<LoadDatabase>>(
-  (ref) => LoadDatabaseNotifier(LoadparamSupabase()),
-);
+      (ref) => LoadDatabaseNotifier(LoadparamSupabase()),
+    );
 
 class LoadDatabaseNotifier extends StateNotifier<List<LoadDatabase>> {
   final LoadparamSupabase _remote;
@@ -25,6 +25,8 @@ class LoadDatabaseNotifier extends StateNotifier<List<LoadDatabase>> {
         type: e['type'] ?? 0,
         location: e['location'] ?? "N/A",
         maxAmps: e['maxAmps'] ?? 10,
+        cutoff: e['cutoff'] ?? false,
+        pushNotification: e['notif'] ?? false,
       );
     }).toList();
   }

@@ -5,6 +5,7 @@ class MqttTopics {
   final String subCurrent;
   final String subBalance;
 
+  final String pubConfig;
   final String pubPhase;
   final String pubMode;
   final String pubStatus;
@@ -18,6 +19,7 @@ class MqttTopics {
     required this.pubPhase,
     required this.pubMode,
     required this.pubStatus,
+    required this.pubConfig,
   });
 
   factory MqttTopics.fromEspId(String espId) {
@@ -30,15 +32,15 @@ class MqttTopics {
       pubPhase: "dev/ai/vixmo/maa/SPDS/$espId/loadData",
       pubMode: "dev/ai/vixmo/maa/SPDS/$espId/mode",
       pubStatus: "dev/ai/vixmo/maa/SPDS/$espId/status",
+      pubConfig: "dev/ai/vixmo/maa/SPDS/$espId/config",
     );
   }
 
   List<String> get subscribeAll => [
-        subPhase,
-        subMode,
-        subStatus,
-        subCurrent,
-        subBalance,
-      ];
-
+    subPhase,
+    subMode,
+    subStatus,
+    subCurrent,
+    subBalance,
+  ];
 }

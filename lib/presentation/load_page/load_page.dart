@@ -21,20 +21,19 @@ class LoadPage extends ConsumerStatefulWidget {
 class _LoadPageState extends ConsumerState<LoadPage> {
   ProviderSubscription<List<LoadParam>>? _loadSubscription;
 
-  bool _userInteracting = false; 
+  bool _userInteracting = false;
 
   @override
   void initState() {
     super.initState();
 
-    _loadSubscription = ref.listenManual<List<LoadParam>>(
-      loadProvider,
-      (_, next) {
-        if (_userInteracting) return; 
-        ref.read(loadControlProvider.notifier).syncFromMqtt(next);
-      },
-      fireImmediately: true,
-    );
+    _loadSubscription = ref.listenManual<List<LoadParam>>(loadProvider, (
+      _,
+      next,
+    ) {
+      // if (_userInteracting) return;
+      ref.read(loadControlProvider.notifier).syncFromMqtt(next);
+    }, fireImmediately: true);
   }
 
   @override
@@ -55,7 +54,7 @@ class _LoadPageState extends ConsumerState<LoadPage> {
     mqtt.publish(topics.pubPhase, '{"load": $load, "phase": "$phase"}');
 
     Future.delayed(const Duration(milliseconds: 2000), () {
-      _userInteracting = false; 
+      _userInteracting = false;
     });
   }
 
@@ -96,7 +95,6 @@ class _LoadPageState extends ConsumerState<LoadPage> {
                   activePhase: control.selectedPhase ?? item.phase,
                   arus: item.arus,
                   maxAmps: item.maxAmps,
-
                   onToggle: (v) {
                     controlNotifier.setSendEnabled(i, v);
 
@@ -117,17 +115,32 @@ class _LoadPageState extends ConsumerState<LoadPage> {
                     loadNotifier.update(i, clearPhase: true);
                   },
 
+                  // onPhaseChanged: (p) {
+                  //   final nextPhase = p.toUpperCase();
+                  //   final currentPhase = control.selectedPhase?.toUpperCase();
+
+                  //   if (nextPhase == currentPhase) return;
+
+                  //   controlNotifier.setPhase(i, nextPhase);
+
+                  //   _publishPhase(i + 1, 'N');
+                  //   loadNotifier.update(i, clearPhase: true);
+                  // },
                   onPhaseChanged: (p) {
                     final nextPhase = p.toUpperCase();
                     final currentPhase = control.selectedPhase?.toUpperCase();
 
                     if (nextPhase == currentPhase) return;
 
-                    controlNotifier.setPhase(i, nextPhase);
+                    if (control.isSendEnabled &&
+                        currentPhase != null &&
+                        currentPhase != 'N') {
+                      _publishPhase(i + 1, 'N');
+                      controlNotifier.setSendEnabled(i, false);
+                      loadNotifier.update(i, clearPhase: true);
+                    }
 
-        
-                    _publishPhase(i + 1, 'N');
-                    loadNotifier.update(i, clearPhase: true);
+                    controlNotifier.setPhase(i, nextPhase);
                   },
 
                   onRename: () async {
@@ -141,6 +154,8 @@ class _LoadPageState extends ConsumerState<LoadPage> {
                           initialAsset: item.assetNum,
                           initialLocation: item.location,
                           initialMaxAmps: item.maxAmps,
+                          initialCutoff: item.cutoff,
+                          initialPushNotification: item.pushNotification,
                         ),
                       ),
                     );

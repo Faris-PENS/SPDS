@@ -10,16 +10,9 @@ class LoadParam {
   final double arus;
   final String? phase;
 
-  LoadParam({
-    required this.load,
-    this.arus = 0,
-    this.phase,
-  });
+  LoadParam({required this.load, this.arus = 0, this.phase});
 
-  LoadParam copyWith({
-    double? arus,
-    String? phase,
-  }) {
+  LoadParam copyWith({double? arus, String? phase}) {
     return LoadParam(
       load: load,
       arus: arus ?? this.arus,
@@ -35,6 +28,8 @@ class LoadDatabase {
   final int type;
   final String location;
   final int maxAmps;
+  final bool cutoff;
+  final bool pushNotification;
 
   LoadDatabase({
     required this.load,
@@ -43,6 +38,8 @@ class LoadDatabase {
     required this.type,
     required this.location,
     required this.maxAmps,
+    required this.cutoff,
+    required this.pushNotification,
   });
 }
 
@@ -56,6 +53,8 @@ class LoadViewData {
   final int maxAmps;
   final double arus;
   final String phase;
+  final bool cutoff;
+  final bool pushNotification;
 
   LoadViewData({
     required this.load,
@@ -66,12 +65,11 @@ class LoadViewData {
     required this.maxAmps,
     required this.arus,
     required this.phase,
+    required this.cutoff,
+    required this.pushNotification,
   });
 
-  LoadViewData copyWith({
-    double? arus,
-    String? phase,
-  }) {
+  LoadViewData copyWith({double? arus, String? phase}) {
     return LoadViewData(
       load: load,
       name: name,
@@ -81,6 +79,8 @@ class LoadViewData {
       maxAmps: maxAmps,
       arus: arus ?? this.arus,
       phase: phase ?? this.phase,
+      cutoff: cutoff,
+      pushNotification: pushNotification,
     );
   }
 }
@@ -111,13 +111,8 @@ class ModeData {
   ModeData(this.mode);
 }
 
-
-
 class BalanceableData {
   final bool isBalanceable;
 
   BalanceableData(this.isBalanceable);
 }
-
-
-
