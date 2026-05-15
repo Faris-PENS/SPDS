@@ -63,6 +63,7 @@ class _LoadPageState extends ConsumerState<LoadPage> {
     final loads = ref.watch(loadCardProvider);
     final controls = ref.watch(loadControlProvider);
     final status = ref.watch(statusProvider);
+    final mode = ref.watch(modeProvider);
     final isConnected = (status?.status ?? 0) == 1;
 
     return Scaffold(
@@ -83,7 +84,11 @@ class _LoadPageState extends ConsumerState<LoadPage> {
                 final controlNotifier = ref.read(loadControlProvider.notifier);
                 final loadNotifier = ref.read(loadProvider.notifier);
 
-                final canToggle = isConnected && control.selectedPhase != null;
+                final isManual = (mode?.mode ?? 0) == 1;
+
+                final canChangePhase = isConnected && isManual;
+
+                final canToggle = canChangePhase && control.selectedPhase != null;
 
                 return LoadCard(
                   subtit: item.name,
@@ -95,25 +100,27 @@ class _LoadPageState extends ConsumerState<LoadPage> {
                   activePhase: control.selectedPhase ?? item.phase,
                   arus: item.arus,
                   maxAmps: item.maxAmps,
-                  onToggle: (v) {
-                    controlNotifier.setSendEnabled(i, v);
+                  onToggle: canToggle
+                      ? (v) {
+                          controlNotifier.setSendEnabled(i, v);
 
-                    if (v) {
-                      final selected = control.selectedPhase;
+                          if (v) {
+                            final selected = control.selectedPhase;
 
-                      if (selected == null || selected == 'N') {
-                        controlNotifier.setSendEnabled(i, false);
-                        return;
-                      }
+                            if (selected == null || selected == 'N') {
+                              controlNotifier.setSendEnabled(i, false);
+                              return;
+                            }
 
-                      _publishPhase(i + 1, selected);
-                      loadNotifier.update(i, phase: selected);
-                      return;
-                    }
+                            _publishPhase(i + 1, selected);
+                            loadNotifier.update(i, phase: selected);
+                            return;
+                          }
 
-                    _publishPhase(i + 1, 'N');
-                    loadNotifier.update(i, clearPhase: true);
-                  },
+                          _publishPhase(i + 1, 'N');
+                          loadNotifier.update(i, clearPhase: true);
+                        }
+                      : (_) {},
 
                   // onPhaseChanged: (p) {
                   //   final nextPhase = p.toUpperCase();
@@ -126,22 +133,25 @@ class _LoadPageState extends ConsumerState<LoadPage> {
                   //   _publishPhase(i + 1, 'N');
                   //   loadNotifier.update(i, clearPhase: true);
                   // },
-                  onPhaseChanged: (p) {
-                    final nextPhase = p.toUpperCase();
-                    final currentPhase = control.selectedPhase?.toUpperCase();
+                  onPhaseChanged: canChangePhase
+                      ? (p) {
+                          final nextPhase = p.toUpperCase();
+                          final currentPhase = control.selectedPhase
+                              ?.toUpperCase();
 
-                    if (nextPhase == currentPhase) return;
+                          if (nextPhase == currentPhase) return;
 
-                    if (control.isSendEnabled &&
-                        currentPhase != null &&
-                        currentPhase != 'N') {
-                      _publishPhase(i + 1, 'N');
-                      controlNotifier.setSendEnabled(i, false);
-                      loadNotifier.update(i, clearPhase: true);
-                    }
+                          if (control.isSendEnabled &&
+                              currentPhase != null &&
+                              currentPhase != 'N') {
+                            _publishPhase(i + 1, 'N');
+                            controlNotifier.setSendEnabled(i, false);
+                            loadNotifier.update(i, clearPhase: true);
+                          }
 
-                    controlNotifier.setPhase(i, nextPhase);
-                  },
+                          controlNotifier.setPhase(i, nextPhase);
+                        }
+                      : (_) {},
 
                   onRename: () async {
                     final updated = await Navigator.push<bool>(

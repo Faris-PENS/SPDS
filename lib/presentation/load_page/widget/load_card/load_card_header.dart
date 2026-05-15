@@ -53,7 +53,7 @@ class LoadCardHeader extends StatelessWidget {
             ],
           ),
         ),
-        Switch(value: isOn, onChanged: isActive ? onToggle : null),
+        Switch(value: isOn, onChanged: !isActive ? null : onToggle),
       ],
     );
   }
