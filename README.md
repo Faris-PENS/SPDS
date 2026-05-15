@@ -1,6 +1,6 @@
 # spds
 
-Scehamtic - Board, Program Frimware, Desain 3D, Database, Manual Book
+Scehamtic - Board, Wiring Diagram, Program Frimware, Desain 3D, Database, Manual Book
 
 [Drive](https://drive.google.com/drive/folders/1paF4QM0c4q3O_8q3rHqxwZ_50W2OX3g-)
 
